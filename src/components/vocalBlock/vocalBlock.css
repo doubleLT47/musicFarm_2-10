@@ -1,0 +1,275 @@
+.container {
+  width: 100%;
+  display: flex;
+}
+
+.leftC {
+  width: 180px;
+}
+
+.controlT {
+  padding: 10px 8px 0 8px;
+}
+
+.rightC {
+  width: 720px;
+  padding: 2px;
+  vertical-align: middle;
+}
+
+.trHead {
+  background-color: var(--head-bg);
+  height: 20px;
+}
+
+td {
+  padding: 3px 2px;
+}
+
+.inputCheckbox {
+  margin: 3px 3px 3px 4px;
+}
+
+.head2 {
+  position: relative;
+}
+
+.cbContainerRed {
+  position: relative;
+  user-select: none;
+  width: 13px;
+  height: 13px;
+  margin: 3px 3px 3px 4px;
+}
+
+.cbContainerRed input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkMarkRed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 13px;
+  width: 13px;
+  border-radius: 2px;
+  background-color: #eee;
+}
+
+.checkMarkRed:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.cbContainerRed input:checked ~ .checkMarkRed {
+  background-color: red;
+}
+
+.cbContainerRed input:checked ~ .checkMarkRed:after {
+  display: inline-block;
+}
+
+.cbContainerRed .checkMarkRed:after {
+  left: 4px;
+  top: 3px;
+  width: 2px;
+  height: 5px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.cbContainerGreen {
+  position: relative;
+  user-select: none;
+  width: 13px;
+  height: 13px;
+  margin: 3px 3px 3px 4px;
+}
+
+.cbContainerGreen input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkMarkGreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 13px;
+  width: 13px;
+  border-radius: 2px;
+  background-color: #eee;
+}
+
+.checkMarkGreen:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.cbContainerGreen input:checked ~ .checkMarkGreen {
+  background-color: green;
+}
+
+.cbContainerGreen input:checked ~ .checkMarkGreen:after {
+  display: inline-block;
+}
+
+.cbContainerGreen .checkMarkGreen:after {
+  left: 4px;
+  top: 3px;
+  width: 2px;
+  height: 5px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.vocalText {
+  color: #fff;
+  margin-left: 8px;
+  font-size: 12px;
+  position: absolute;
+  left: 20px;
+}
+
+.vxText {
+  color: blue;
+  font-size: 12px;
+  position: absolute;
+  right: 4px;
+  top: 6px;
+}
+
+.vxTextGreen {
+  color: green;
+}
+
+.head3 {
+  /* width: 85px; */
+  position: relative;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  position: absolute;
+  right: 4px;
+  top: 2px;
+}
+
+.head4 {
+  /* width: 25px; */
+}
+
+.head5 {
+  /* width: 50px; */
+}
+
+.head6 {
+  /* width: 363px; */
+  text-align: right;
+}
+
+.presetText {
+  font-size: 12px;
+  color: #fff;
+  vertical-align: middle;
+}
+
+.select {
+  border: 1px inset var(--border-color);
+  border-radius: 3px;
+  outline: none;
+  background-color: var(--secondary-bg);
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+.subIcon {
+  display: inline-block;
+  width: 9px;
+  height: 2px;
+  background-color: var(--secondary-bg);
+  cursor: pointer;
+  margin-left: 20px;
+  vertical-align: middle;
+}
+
+.plusIcon {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.plusIcon:hover ul {
+  display: block;
+}
+
+.plusIcon ul {
+  display: none;
+  border-radius: 3px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--third-bg);
+  position: absolute;
+  top: 10px;
+  right: 0;
+  width: 70px;
+}
+
+.plusIcon ul li {
+  text-align: left;
+  padding: 2px 4px;
+}
+
+.plusIcon ul li:hover {
+  background-color: var(--secondary-bg);
+}
+
+.plusIcon::before {
+  content: "";
+  position: absolute;
+  background-color: var(--secondary-bg);
+  width: 2px;
+  height: 9px;
+  left: 3.5px;
+  top: 0;
+}
+
+.plusIcon::after {
+  content: "";
+  position: absolute;
+  background-color: var(--secondary-bg);
+  width: 9px;
+  height: 2px;
+  top: 3.5px;
+  left: 0;
+}
+
+.trackText {
+  font-size: 12px;
+  color: #fff;
+  margin: 0 4px;
+  vertical-align: middle;
+}
+
+.mediumGrey {
+  background-color: var(--main-bg);
+}
+
+.lightGrey {
+  background-color: var(--secondary-bg);
+}

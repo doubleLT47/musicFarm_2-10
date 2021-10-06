@@ -1,0 +1,29 @@
+:root {
+  --head-bg: #333333;
+  --main-bg: #bbbbbb;
+  --secondary-bg: #dadada;
+  --third-bg: #eeeeee;
+  --border-color: #7e7e7e;
+  --text-color: #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+ul li {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+a {
+  text-decoration: none;
+}

@@ -1,0 +1,121 @@
+.controlTrack {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2px 0;
+  height: 28px;
+}
+
+.trackName {
+  width: 90px;
+  border: 1px inset var(--border-color);
+  border-radius: 3px;
+  outline: none;
+  background-color: var(--secondary-bg);
+  margin-left: 2px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.trackName:focus {
+  background: #fff;
+  border-color: #69c773;
+}
+
+.cbContainerOrange {
+  position: relative;
+  user-select: none;
+  width: 13px;
+  height: 13px;
+  margin: 3px 3px 3px 4px;
+}
+
+.cbContainerOrange input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkMarkOrange {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 13px;
+  width: 13px;
+  border-radius: 2px;
+  background-color: #eee;
+}
+
+.checkMarkOrange:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.cbContainerOrange input:checked ~ .checkMarkOrange {
+  background-color: orange;
+}
+
+.cbContainerOrange input:checked ~ .checkMarkOrange:after {
+  display: inline-block;
+}
+
+.cbContainerOrange .checkMarkOrange:after {
+  left: 4px;
+  top: 3px;
+  width: 2px;
+  height: 5px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.cbContainerPurple {
+  position: relative;
+  user-select: none;
+  width: 13px;
+  height: 13px;
+  margin: 3px 3px 3px 4px;
+}
+
+.cbContainerPurple input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkMarkPurple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 13px;
+  width: 13px;
+  border-radius: 2px;
+  background-color: #eee;
+}
+
+.checkMarkPurple:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.cbContainerPurple input:checked ~ .checkMarkPurple {
+  background-color: purple;
+}
+
+.cbContainerPurple input:checked ~ .checkMarkPurple:after {
+  display: inline-block;
+}
+
+.cbContainerPurple .checkMarkPurple:after {
+  left: 4px;
+  top: 3px;
+  width: 2px;
+  height: 5px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

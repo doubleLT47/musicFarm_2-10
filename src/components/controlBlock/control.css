@@ -1,0 +1,174 @@
+.controlBlock {
+  display: flex;
+}
+
+/* left control */
+.leftControl {
+  width: 180px;
+  background-color: var(--main-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 10px;
+}
+
+.settingCt {
+  position: relative;
+}
+
+.settingCt:hover .settingOption {
+  display: block;
+}
+
+.settingOption {
+  display: none;
+  width: 95px;
+  position: absolute;
+  bottom: 25px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background-color: var(--secondary-bg);
+}
+
+.settingOption h6 {
+  font-size: 14px;
+}
+
+.settingOption ul li {
+  padding: 4px 4px;
+  cursor: pointer;
+}
+
+.settingOption ul li:hover {
+  background-color: var(--third-bg);
+}
+
+.volumeControl {
+  display: flex;
+  align-items: flex-end;
+}
+
+.vol {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: var(--secondary-bg);
+  margin-right: 4px;
+}
+
+/* Main control */
+
+.mainControl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 720px;
+}
+
+/* Audio control */
+.audioControlGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 8px;
+}
+
+.audioControlItem {
+  flex: 1;
+  position: relative;
+  margin-right: 8px;
+  overflow: hidden;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  background-color: var(--head-bg);
+  cursor: pointer;
+}
+
+.triangleIcon::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background-color: #fff;
+  transform: rotate(-60deg);
+  top: -22px;
+  right: -10px;
+}
+
+.triangleIcon::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background-color: #fff;
+  transform: rotate(60deg);
+  bottom: -22px;
+  right: -10px;
+}
+
+.playIcon {
+  width: 15px;
+  height: 20px;
+}
+
+.playIcon::after {
+  content: "";
+  width: 3px;
+  height: 20px;
+  position: absolute;
+  left: 6px;
+  background-color: #fff;
+}
+
+/* BMP Control */
+
+.bpmControl {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#bpmInput {
+  width: 50px;
+  margin-right: 4px;
+  border: 1px inset var(--border-color);
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-weight: bold;
+  background-color: var(--secondary-bg);
+}
+
+.bpmText {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* Loop control */
+.loopControl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loopSelect {
+  margin-right: 4px;
+  width: 50px;
+  border: 1px inset var(--border-color);
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-weight: bold;
+  background-color: var(--secondary-bg);
+}
+
+#fileSelect {
+  width: 200px;
+  border: 1px inset var(--border-color);
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-weight: bold;
+  background-color: var(--secondary-bg);
+}
