@@ -8,6 +8,7 @@ const VocalBlock = ({ index, isChecked, setVxCheck }) => {
   const [active1, setActive1] = useState(true);
   const [active2, setActive2] = useState(false);
   const [active3, setActive3] = useState(false);
+  const [isAdd, setIsAdd] = useState(false);
   const [vocalVolDr, setVocalVolDr] = useState("74");
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
@@ -55,6 +56,11 @@ const VocalBlock = ({ index, isChecked, setVxCheck }) => {
     active3 && setVxCheck(null);
     !active3 && setVxCheck(index);
     setActive3(!active3);
+  };
+
+  const clickAddRow = (option) => {
+    setIsAdd(false);
+    addRow(option);
   };
 
   return (
@@ -105,7 +111,11 @@ const VocalBlock = ({ index, isChecked, setVxCheck }) => {
                 />
                 <span className="checkMarkGreen"></span>
               </label>
-              <span className="circle"></span>
+              <img
+                className="circle"
+                src="./assets/icon/treble-clef-vector-icons-set.png"
+                alt=""
+              />
             </td>
             <td className="head4"></td>
             <td className="head5">
@@ -262,10 +272,14 @@ const VocalBlock = ({ index, isChecked, setVxCheck }) => {
               </select>
               <div className="subIcon"></div>
               <div className="plusIcon">
-                <ul>
-                  <li onClick={() => addRow("melody")}>Melody</li>
-                  <li onClick={() => addRow("singleNote")}>Single note</li>
-                  <li onClick={() => addRow("vocal")}>Vocal</li>
+                <div
+                  className="plusIconI"
+                  onClick={() => setIsAdd(!isAdd)}
+                ></div>
+                <ul className={isAdd ? "ulList isBlock" : "ulList"}>
+                  <li onClick={() => clickAddRow("melody")}>Melody</li>
+                  <li onClick={() => clickAddRow("singleNote")}>Single note</li>
+                  <li onClick={() => clickAddRow("vocal")}>Vocal</li>
                 </ul>
               </div>
               <span className="trackText">track</span>

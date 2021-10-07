@@ -207,19 +207,17 @@ td {
 
 .plusIcon {
   display: inline-block;
-  width: 9px;
-  height: 9px;
-  vertical-align: middle;
   position: relative;
   cursor: pointer;
   margin-left: 4px;
+  vertical-align: middle;
 }
 
-.plusIcon:hover ul {
-  display: block;
+.isBlock {
+  display: block !important;
 }
 
-.plusIcon ul {
+.ulList {
   display: none;
   border-radius: 3px;
   border-top: 1px solid var(--border-color);
@@ -239,7 +237,50 @@ td {
   background-color: var(--secondary-bg);
 }
 
-.plusIcon::before {
+.addSingleNoteRow {
+  position: absolute;
+  top: 0;
+  right: 70px;
+  border-left: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--secondary-bg);
+  padding: 2px 0;
+  border-radius: 4px 0 0 4px;
+  display: none;
+  padding-right: 2px;
+}
+
+.addSingleNoteRow > input {
+  border: 1px inset var(--border-color);
+  border-radius: 3px;
+  outline: none;
+  background-color: #fff;
+  margin-left: 2px;
+  padding: 2px;
+  width: 110px;
+}
+
+.isFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addSingleNoteRow > button {
+  border: 1px inset var(--border-color);
+  border-radius: 3px;
+  background-color: #337ab7;
+  margin-left: 2px;
+  padding: 2px;
+}
+
+.plusIconI {
+  width: 9px;
+  height: 9px;
+}
+
+.plusIconI::before {
   content: "";
   position: absolute;
   background-color: var(--secondary-bg);
@@ -249,7 +290,7 @@ td {
   top: 0;
 }
 
-.plusIcon::after {
+.plusIconI::after {
   content: "";
   position: absolute;
   background-color: var(--secondary-bg);

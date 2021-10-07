@@ -17,14 +17,11 @@ const ScriptBlock = ({ vxCheck }) => {
           <option value="new">New</option>
           <option value="old">Old</option>
         </select>
-        <FileControl hasSetting="true" />
+        <FileControl />
       </div>
       <div className="rightScript">
         <input type="checkbox" id="scriptCheckbox" />
-        <textarea
-          className={vxCheck !== null ? "isVxChecked jsonScript" : "jsonScript"}
-          name=""
-        ></textarea>
+        <textarea className="jsonScript" name=""></textarea>
         <textarea
           className={vxCheck !== null ? "isVxChecked vxCode" : "vxCode"}
           name=""

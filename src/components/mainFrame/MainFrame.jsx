@@ -14,7 +14,7 @@ const MainFrame = ({ blocks, vxCheck, setVxCheck }) => {
               <DrumsBlock
                 key={index}
                 index={index + 1}
-                isChecked={index === vxCheck}
+                isChecked={index + 1 === vxCheck}
                 setVxCheck={setVxCheck}
               />
             ))

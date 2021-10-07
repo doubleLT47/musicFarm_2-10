@@ -22,8 +22,8 @@ const ControlBlock = ({ addBlock }) => {
             <h6>Select one</h6>
             <ul>
               <li onClick={() => addBlock("drums")}>Drums</li>
-              <li>Harmony</li>
-              <li>Vocal</li>
+              <li onClick={() => addBlock("harmony")}>Harmony</li>
+              <li onClick={() => addBlock("vocal")}>Vocal</li>
             </ul>
           </div>
         </div>

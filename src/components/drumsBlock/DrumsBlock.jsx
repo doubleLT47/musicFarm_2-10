@@ -8,6 +8,7 @@ const DrumsBlock = ({ index, isChecked, setVxCheck }) => {
   const [active1, setActive1] = useState(true);
   const [active2, setActive2] = useState(false);
   const [active3, setActive3] = useState(false);
+  const [isAdd, setIsAdd] = useState(false);
   const [vocalVolDr, setVocalVolDr] = useState("74");
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
@@ -44,6 +45,11 @@ const DrumsBlock = ({ index, isChecked, setVxCheck }) => {
     active3 && setVxCheck(null);
     !active3 && setVxCheck(index);
     setActive3(!active3);
+  };
+
+  const clickAddRow = (option) => {
+    setIsAdd(false);
+    addRow(option);
   };
 
   return (
@@ -250,9 +256,13 @@ const DrumsBlock = ({ index, isChecked, setVxCheck }) => {
               </select>
               <div className="subIcon"></div>
               <div className="plusIcon">
-                <ul>
-                  <li onClick={() => addRow("drumsKit")}>Drums Kit</li>
-                  <li onClick={() => addRow("fx")}>Fx</li>
+                <div
+                  className="plusIconI"
+                  onClick={() => setIsAdd(!isAdd)}
+                ></div>
+                <ul className={isAdd ? "ulList isBlock" : "ulList"}>
+                  <li onClick={() => clickAddRow("drumsKit")}>Drums Kit</li>
+                  <li onClick={() => clickAddRow("fx")}>Fx</li>
                 </ul>
               </div>
               <span className="trackText">track</span>

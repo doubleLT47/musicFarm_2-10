@@ -1,7 +1,7 @@
 import React from "react";
 import "./file.css";
 
-const FileControl = ({ bc, hasSetting, setNewPattern }) => {
+const FileControl = ({ bc, setNewPattern }) => {
   return (
     <div className={bc ? "fileControl bgFileControl" : "fileControl"}>
       <div className="fileItem">
@@ -33,15 +33,13 @@ const FileControl = ({ bc, hasSetting, setNewPattern }) => {
           alt=""
         />
       </div>
-      {hasSetting && (
-        <div className="fileItem">
-          <img
-            className="imgIcon"
-            src="./assets/icon/outline_setting_black_24dp.png"
-            alt=""
-          />
-        </div>
-      )}
+      <div className="fileItem">
+        <img
+          className="imgIcon"
+          src="./assets/icon/outline_setting_black_24dp.png"
+          alt=""
+        />
+      </div>
     </div>
   );
 };
