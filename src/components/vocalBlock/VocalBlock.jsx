@@ -6,8 +6,6 @@ import ControlTrack from "../controlTrack/ControlTrack";
 
 const VocalBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
   const [active1, setActive1] = useState(true);
-  const [active2, setActive2] = useState(false);
-  const [active3, setActive3] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
   const [vocalVolDr, setVocalVolDr] = useState("74");
   const [chords, setChords] = useState("C");
@@ -57,17 +55,19 @@ const VocalBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
   }
 
   const handleChange = () => {
-    active3 && setVxCheck(null);
-    !active3 && setVxCheck(index);
-    setActive3(!active3);
+    if (vxCheck === index) {
+      setVxCheck(null);
+    } else {
+      setVxCheck(index);
+    }
   };
-  console.log(active3);
 
   const handleRedChange = () => {
-    active2 && setRedCheck(null);
-    !active2 && setRedCheck(index);
-    setActive2(!active2);
-    console.log(active2);
+    if (redCheck === index) {
+      setRedCheck(null);
+    } else {
+      setRedCheck(index);
+    }
   };
 
   const clickAddRow = (option) => {

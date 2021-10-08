@@ -12,8 +12,6 @@ const HarmonyBlock = ({
   setRedCheck,
 }) => {
   const [active1, setActive1] = useState(true);
-  const [active2, setActive2] = useState(false);
-  const [active3, setActive3] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
   const [isIC, setIsIC] = useState(false);
   const [trackNameNew, setTrackNameNew] = useState("");
@@ -66,18 +64,20 @@ const HarmonyBlock = ({
   };
 
   const handleChange = () => {
-    active3 && setVxCheck(null);
-    !active3 && setVxCheck(index);
-    setActive3(!active3);
-    console.log(active3);
+    if (vxCheck === index) {
+      setVxCheck(null);
+    } else {
+      setVxCheck(index);
+    }
   };
 
   const handleRedChange = () => {
-    setActive2(!active2);
-    !active2 && setRedCheck(null);
-    active2 && setRedCheck(index);
+    if (redCheck === index) {
+      setRedCheck(null);
+    } else {
+      setRedCheck(index);
+    }
   };
-  console.log(active2);
 
   const handleChangeIN = (e) => {
     setInstrumentNew(e.target.value);
