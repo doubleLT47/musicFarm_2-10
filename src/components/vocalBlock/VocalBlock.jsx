@@ -3,20 +3,40 @@ import "./vocalBlock.css";
 import FileControl from "../fileControl/FileControl";
 import VocalRow from "../vocalRow/VocalRow";
 import ControlTrack from "../controlTrack/ControlTrack";
+import Modal from "../modal/Modal";
 
-const VocalBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
+const VocalBlock = ({
+  index,
+  setDeleteNumber,
+  vxCheck,
+  setVxCheck,
+  redCheck,
+  setRedCheck,
+}) => {
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
+  const [deleteRowNumber, setDeleteRowNumber] = useState(null);
+
   const [vocalVolDr, setVocalVolDr] = useState("74");
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
   const [typeHead, setTypeHead] = useState("New");
+
   const [lenRow, setLenRow] = useState([
     { trackName: "", instrument: "0", note: "33", vol: "74" },
   ]);
   const [newPattern, setNewPattern] = useState(false);
 
-  // isChecked && setActive3(true);
+  const handleMouseLeave = (event) => {
+    // console.log("a");
+    // document.addEventListener(
+    //   "click",
+    //   () => {
+    //     setIsAdd(false);
+    //   },
+    //   false
+    // );
+  };
 
   const addRow = (option) => {
     if (option === "melody") {
@@ -47,6 +67,16 @@ const VocalBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
         { trackName: "Vocal", instrument: "40", vol: "100", note: "48" },
       ];
       setLenRow(newRow);
+    }
+  };
+
+  const deleteRow = (option, i) => {
+    if (option === "delete") {
+      const newBlocks = lenRow.filter((lr, index) => index !== i);
+      setLenRow(newBlocks);
+      setDeleteRowNumber(null);
+    } else if (option === "cancel") {
+      setDeleteRowNumber(null);
     }
   };
 
@@ -84,7 +114,12 @@ const VocalBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
             <span style={{ marginLeft: "10px", fontWeight: "bold" }}>D</span>
             <span style={{ marginLeft: "24px", fontWeight: "bold" }}>R</span>
             {lenRow.map((el, index) => (
-              <ControlTrack name={el.trackName} key={index} />
+              <ControlTrack
+                name={el.trackName}
+                index={index}
+                setDeleteRowNumber={setDeleteRowNumber}
+                key={index}
+              />
             ))}
           </div>
         </div>
@@ -284,13 +319,19 @@ const VocalBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
               >
                 <option value="New">New</option>
               </select>
-              <div className="subIcon"></div>
+              <div
+                className="subIcon"
+                onClick={() => setDeleteNumber(index)}
+              ></div>
               <div className="plusIcon">
                 <div
                   className="plusIconI"
                   onClick={() => setIsAdd(!isAdd)}
                 ></div>
-                <ul className={isAdd ? "ulList isBlock" : "ulList"}>
+                <ul
+                  onMouseLeave={handleMouseLeave}
+                  className={isAdd ? "ulList isBlock" : "ulList"}
+                >
                   <li onClick={() => clickAddRow("melody")}>Melody</li>
                   <li onClick={() => clickAddRow("singleNote")}>Single note</li>
                   <li onClick={() => clickAddRow("vocal")}>Vocal</li>
@@ -319,6 +360,7 @@ const VocalBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
           </tbody>
         </table>
       </div>
+      <Modal deleteNumber={deleteRowNumber} deleteEl={deleteRow} />
     </div>
   );
 };

@@ -3,10 +3,12 @@ import "./harmonyBlock.css";
 import FileControl from "../fileControl/FileControl";
 import HarmonyRow from "../harmonyRow/HarmonyRow";
 import ControlTrack from "../controlTrack/ControlTrack";
+import Modal from "../modal/Modal";
 
 const HarmonyBlock = ({
   index,
   vxCheck,
+  setDeleteNumber,
   setVxCheck,
   redCheck,
   setRedCheck,
@@ -14,6 +16,8 @@ const HarmonyBlock = ({
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
   const [isIC, setIsIC] = useState(false);
+  const [deleteRowNumber, setDeleteRowNumber] = useState(null);
+
   const [trackNameNew, setTrackNameNew] = useState("");
   const [instrumentNew, setInstrumentNew] = useState("0");
   const [noteNew, setNoteNew] = useState("0");
@@ -30,8 +34,6 @@ const HarmonyBlock = ({
   }
 
   const [newPattern, setNewPattern] = useState(false);
-
-  // isChecked && setActive3(true);
 
   const addRow = (option, data) => {
     if (option === "instrument") {
@@ -60,6 +62,16 @@ const HarmonyBlock = ({
         { trackName: "Fx", instrument: "40", vol: "100", note: "48" },
       ];
       setLenRow(newRow);
+    }
+  };
+
+  const deleteRow = (option, i) => {
+    if (option === "delete") {
+      const newBlocks = lenRow.filter((lr, index) => index !== i);
+      setLenRow(newBlocks);
+      setDeleteRowNumber(null);
+    } else if (option === "cancel") {
+      setDeleteRowNumber(null);
     }
   };
 
@@ -111,7 +123,12 @@ const HarmonyBlock = ({
             <span style={{ marginLeft: "10px", fontWeight: "bold" }}>D</span>
             <span style={{ marginLeft: "24px", fontWeight: "bold" }}>R</span>
             {lenRow.map((el, index) => (
-              <ControlTrack name={el.trackName} key={index} />
+              <ControlTrack
+                name={el.trackName}
+                index={index}
+                setDeleteRowNumber={setDeleteRowNumber}
+                key={index}
+              />
             ))}
           </div>
         </div>
@@ -306,7 +323,10 @@ const HarmonyBlock = ({
               >
                 <option value="New">New</option>
               </select>
-              <div className="subIcon"></div>
+              <div
+                className="subIcon"
+                onClick={() => setDeleteNumber(index)}
+              ></div>
               <div className="plusIcon">
                 <div
                   className="plusIconI"
@@ -623,6 +643,7 @@ const HarmonyBlock = ({
           </tbody>
         </table>
       </div>
+      <Modal deleteNumber={deleteRowNumber} deleteEl={deleteRow} />
     </div>
   );
 };

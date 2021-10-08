@@ -6,16 +6,18 @@ import "./main.css";
 
 const block = { drums: DrumsBlock, harmony: HarmonyBlock, vocal: VocalBlock };
 
-const MainFrame = ({ blocks, vxCheck, setVxCheck }) => {
+const MainFrame = ({ blocks, setDeleteNumber, vxCheck, setVxCheck }) => {
   const [redCheck, setRedCheck] = useState(null);
+
   return (
     <div className="mainFrame">
       {blocks.map((el, index) => {
         const Block = block[el];
         return Block ? (
           <Block
-            index={index + 1}
+            index={index}
             key={index}
+            setDeleteNumber={setDeleteNumber}
             vxCheck={vxCheck}
             setVxCheck={setVxCheck}
             redCheck={redCheck}

@@ -1,7 +1,7 @@
 import React from "react";
 import "./controlTrack.css";
 
-const ControlTrack = ({ name }) => {
+const ControlTrack = ({ name, index, setDeleteRowNumber }) => {
   return (
     <div className="controlTrack">
       <label className="cbContainerOrange">
@@ -12,7 +12,10 @@ const ControlTrack = ({ name }) => {
         <input type="checkbox" className="inputCheckbox" />
         <span className="checkMarkPurple"></span>
       </label>
-
+      <div
+        className="deleteTrackIcon"
+        onClick={() => setDeleteRowNumber(index)}
+      ></div>
       <div className="trackName" contenteditable="true">
         {name}
       </div>

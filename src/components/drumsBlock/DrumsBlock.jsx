@@ -3,10 +3,20 @@ import "./drumsBlock.css";
 import FileControl from "../fileControl/FileControl";
 import DrumsRow from "../drumsRow/DrumsRow";
 import ControlTrack from "../controlTrack/ControlTrack";
+import Modal from "../modal/Modal";
 
-const DrumsBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
+const DrumsBlock = ({
+  index,
+  vxCheck,
+  setDeleteNumber,
+  setVxCheck,
+  redCheck,
+  setRedCheck,
+}) => {
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
+  const [deleteRowNumber, setDeleteRowNumber] = useState(null);
+
   const [vocalVolDr, setVocalVolDr] = useState("74");
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
@@ -36,6 +46,16 @@ const DrumsBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
         { trackName: "Fx", instrument: "82", vol: "127", note: "9" },
       ];
       setLenRow(newRow);
+    }
+  };
+
+  const deleteRow = (option, i) => {
+    if (option === "delete") {
+      const newBlocks = lenRow.filter((lr, index) => index !== i);
+      setLenRow(newBlocks);
+      setDeleteRowNumber(null);
+    } else if (option === "cancel") {
+      setDeleteRowNumber(null);
     }
   };
 
@@ -73,7 +93,12 @@ const DrumsBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
             <span style={{ marginLeft: "10px", fontWeight: "bold" }}>D</span>
             <span style={{ marginLeft: "24px", fontWeight: "bold" }}>R</span>
             {lenRow.map((el, index) => (
-              <ControlTrack name={el.trackName} key={index} />
+              <ControlTrack
+                name={el.trackName}
+                index={index}
+                setDeleteRowNumber={setDeleteRowNumber}
+                key={index}
+              />
             ))}
           </div>
         </div>
@@ -268,7 +293,10 @@ const DrumsBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
               >
                 <option value="New">New</option>
               </select>
-              <div className="subIcon"></div>
+              <div
+                className="subIcon"
+                onClick={() => setDeleteNumber(index)}
+              ></div>
               <div className="plusIcon">
                 <div
                   className="plusIconI"
@@ -302,6 +330,7 @@ const DrumsBlock = ({ index, vxCheck, setVxCheck, redCheck, setRedCheck }) => {
           </tbody>
         </table>
       </div>
+      <Modal deleteNumber={deleteRowNumber} deleteEl={deleteRow} />
     </div>
   );
 };

@@ -7,7 +7,7 @@
 }
 
 .trackName {
-  width: 90px;
+  width: 70px;
   border: 1px inset var(--border-color);
   border-radius: 3px;
   outline: none;
@@ -118,4 +118,12 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.deleteTrackIcon {
+  width: 9px;
+  height: 2px;
+  background-color: var(--secondary-bg);
+  cursor: pointer;
+  vertical-align: middle;
 }
