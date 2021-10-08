@@ -4,7 +4,6 @@ import FileControl from "../fileControl/FileControl";
 
 const ScriptBlock = ({ vxCheck }) => {
   const [scriptValue, setScriptValue] = useState("new");
-  console.log(vxCheck);
   return (
     <div className="scriptBlock">
       <div className="leftScript">

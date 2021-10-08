@@ -4,7 +4,13 @@ import FileControl from "../fileControl/FileControl";
 import HarmonyRow from "../harmonyRow/HarmonyRow";
 import ControlTrack from "../controlTrack/ControlTrack";
 
-const HarmonyBlock = ({ index, isChecked, setVxCheck }) => {
+const HarmonyBlock = ({
+  index,
+  vxCheck,
+  setVxCheck,
+  redCheck,
+  setRedCheck,
+}) => {
   const [active1, setActive1] = useState(true);
   const [active2, setActive2] = useState(false);
   const [active3, setActive3] = useState(false);
@@ -20,6 +26,10 @@ const HarmonyBlock = ({ index, isChecked, setVxCheck }) => {
   const [lenRow, setLenRow] = useState([
     { trackName: "Name", instrument: "12", vol: "74", note: "33" },
   ]);
+
+  if (redCheck !== null) {
+    active1 && setActive1(false);
+  }
 
   const [newPattern, setNewPattern] = useState(false);
 
@@ -58,9 +68,16 @@ const HarmonyBlock = ({ index, isChecked, setVxCheck }) => {
   const handleChange = () => {
     active3 && setVxCheck(null);
     !active3 && setVxCheck(index);
-    console.log(index);
     setActive3(!active3);
+    console.log(active3);
   };
+
+  const handleRedChange = () => {
+    setActive2(!active2);
+    !active2 && setRedCheck(null);
+    active2 && setRedCheck(index);
+  };
+  console.log(active2);
 
   const handleChangeIN = (e) => {
     setInstrumentNew(e.target.value);
@@ -113,13 +130,15 @@ const HarmonyBlock = ({ index, isChecked, setVxCheck }) => {
                 <input
                   type="checkbox"
                   className="inputCheckbox"
-                  checked={active2}
-                  onChange={(e) => setActive2(!active2)}
+                  checked={redCheck === index}
+                  onChange={handleRedChange}
                 />
                 <span className="checkMarkRed"></span>
               </label>
               <span className="vocalText">Harmony</span>
-              <span className={active3 ? "vxText vxTextGreen" : "vxText"}>
+              <span
+                className={vxCheck === index ? "vxText vxTextGreen" : "vxText"}
+              >
                 VX
               </span>
             </td>
@@ -128,7 +147,7 @@ const HarmonyBlock = ({ index, isChecked, setVxCheck }) => {
                 <input
                   type="checkbox"
                   className="inputCheckbox"
-                  checked={active3}
+                  checked={vxCheck === index}
                   onChange={handleChange}
                 />
                 <span className="checkMarkGreen"></span>
@@ -599,7 +618,6 @@ const HarmonyBlock = ({ index, isChecked, setVxCheck }) => {
                 row={row}
                 newPattern={newPattern}
                 setNewPattern={setNewPattern}
-                active2={active2}
               />
             ))}
           </tbody>

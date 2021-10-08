@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const HarmonyRow = ({ row, newPattern, setNewPattern, active2 }) => {
+const HarmonyRow = ({ row, newPattern, setNewPattern }) => {
   const [activeT1, setActiveT1] = useState(true);
   const [instrument1, setInstrument1] = useState(row.instrument);
   const [vol1, setVol1] = useState(row.vol);
@@ -22,9 +22,6 @@ const HarmonyRow = ({ row, newPattern, setNewPattern, active2 }) => {
   const [pcb14, setPcb14] = useState(false);
   const [pcb15, setPcb15] = useState(false);
   const [pcb16, setPcb16] = useState(false);
-  if (active2) {
-    activeT1 && setActiveT1(false);
-  }
   if (newPattern) {
     pcb1 && setPcb1(false);
     pcb2 && setPcb2(false);
