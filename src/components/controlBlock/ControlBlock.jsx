@@ -1,18 +1,15 @@
 import { useState } from "react";
+import FileControl from "../fileControl/FileControl";
 import "./control.css";
 
 const ControlBlock = ({ addBlock }) => {
   const [bpmValue, setBpmValue] = useState(100);
   const [loopValue, setLoopValue] = useState("loop");
+  const [volValue, setVolValue] = useState(90);
   return (
     <div className="controlBlock">
       <div className="leftControl">
-        <img
-          className="imgIcon"
-          src="./assets/icon/outline_logout_black_24dp.png"
-          alt=""
-        />
-        <div className="settingCt">
+        {/* <div className="settingCt">
           <img
             className="imgIcon"
             src="./assets/icon/outline_setting_black_24dp.png"
@@ -26,13 +23,29 @@ const ControlBlock = ({ addBlock }) => {
               <li onClick={() => addBlock("vocal")}>Vocal</li>
             </ul>
           </div>
-        </div>
-        <div className="volumeControl">
-          <div className="vol"></div>
-          <span className="textVol">Vol</span>
-        </div>
+        </div> */}
+        <FileControl bc={true} addBlock={addBlock} />
       </div>
       <div className="mainControl">
+        <input
+          type="checkbox"
+          style={{ marginLeft: "7px" }}
+          className="inputCheckbox"
+        />
+        <select name="" id="fileSelect" value="new">
+          <option value="new">New</option>
+        </select>
+        <div className="bpmControl">
+          <input
+            id="bpmInput"
+            min="30"
+            max="250"
+            type="number"
+            value={bpmValue}
+            onChange={(e) => setBpmValue(e.target.value)}
+          />
+          <span className="bpmText">BMP</span>
+        </div>
         <div className="audioControlGroup">
           <div className="audioControlItem">
             <div className="icon squareIcon"></div>
@@ -43,18 +56,6 @@ const ControlBlock = ({ addBlock }) => {
           <div className="audioControlItem">
             <div className="icon playIcon"></div>
           </div>
-        </div>
-        <div className="bpmControl">
-          <input
-            id="bpmInput"
-            name="quantity"
-            min="30"
-            max="250"
-            type="number"
-            value={bpmValue}
-            onChange={(e) => setBpmValue(e.target.value)}
-          />
-          <span className="bpmText">BMP</span>
         </div>
         <div className="loopControl">
           <img
@@ -121,34 +122,25 @@ const ControlBlock = ({ addBlock }) => {
             <option value="50">50</option>
           </select>
         </div>
-        <div className="fileControl">
-          <div className="fileItem">
-            <img
-              className="imgIcon"
-              src="./assets/icon/outline_file_upload_black_24dp.png"
-              alt=""
-            />
-          </div>
-          <div className="fileItem">
-            <img
-              className="imgIcon"
-              src="./assets/icon/outline_file_download_black_24dp.png"
-              alt=""
-            />
-          </div>
-          <div className="fileItem">
-            <img
-              className="imgIcon"
-              src="./assets/icon/outline_save_black_24dp.png"
-              alt=""
-            />
-          </div>
-          <div className="fileItem">
-            <select name="" id="fileSelect" value="new">
-              <option value="new">New</option>
-            </select>
-          </div>
-        </div>
+        <input
+          style={{ width: "90px", height: "5px" }}
+          type="range"
+          value={volValue}
+          min="0"
+          onChange={(e) => setVolValue(e.target.value)}
+          max="100"
+        />
+        <input
+          style={{
+            width: "45px",
+            borderBottom: "1px solid #7e7e7e",
+          }}
+          type="number"
+          value={volValue}
+          min="0"
+          max="100"
+          onChange={(e) => setVolValue(e.target.value)}
+        />
       </div>
     </div>
   );

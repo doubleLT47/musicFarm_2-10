@@ -152,7 +152,9 @@ const HarmonyBlock = ({
                 />
                 <span className="checkMarkRed"></span>
               </label>
-              <span className="vocalText">Harmony</span>
+              <span className="vocalText" contenteditable="true">
+                Harmony
+              </span>
               <span
                 className={vxCheck === index ? "vxText vxTextGreen" : "vxText"}
               >

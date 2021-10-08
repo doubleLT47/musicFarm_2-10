@@ -25,6 +25,12 @@ const ScriptBlock = ({ vxCheck }) => {
           className={vxCheck !== null ? "isVxChecked vxCode" : "vxCode"}
           name=""
         ></textarea>
+        <img
+          style={{ position: "absolute", bottom: "20px", right: "20px" }}
+          src="./assets/icon/outline_logout_black_24dp.png"
+          className="imgIcon"
+          alt=""
+        />
       </div>
     </div>
   );

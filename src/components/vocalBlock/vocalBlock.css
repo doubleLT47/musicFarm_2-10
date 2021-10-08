@@ -134,10 +134,20 @@ td {
 
 .vocalText {
   color: #fff;
+  width: 60%;
   margin-left: 8px;
   font-size: 12px;
   position: absolute;
   left: 20px;
+}
+
+.vocalText:focus {
+  background: #fff;
+  /* border-color: #69c773; */
+  outline: none;
+  color: #000000;
+  border-radius: 3px;
+  padding-left: 4px;
 }
 
 .vxText {

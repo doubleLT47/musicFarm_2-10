@@ -143,7 +143,9 @@ const VocalBlock = ({
                 />
                 <span className="checkMarkRed"></span>
               </label>
-              <span className="vocalText">Vocal</span>
+              <span className="vocalText" contenteditable="true">
+                Vocal
+              </span>
               <span
                 className={vxCheck === index ? "vxText vxTextGreen" : "vxText"}
               >
