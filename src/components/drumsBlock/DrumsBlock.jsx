@@ -12,6 +12,7 @@ const DrumsBlock = ({
   setVxCheck,
   redCheck,
   setRedCheck,
+  moveBlock,
 }) => {
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
@@ -84,11 +85,22 @@ const DrumsBlock = ({
     addRow(option);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.which === 13) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className="drumsBlock">
       <div className="container">
         <div className="leftC">
-          <FileControl bc={true} setNewPattern={setNewPattern} />
+          <FileControl
+            bc={true}
+            setNewPattern={setNewPattern}
+            moveBlock={moveBlock}
+            index={index}
+          />
           <div className="controlT">
             <span style={{ marginLeft: "10px", fontWeight: "bold" }}>D</span>
             <span style={{ marginLeft: "24px", fontWeight: "bold" }}>R</span>
@@ -122,7 +134,11 @@ const DrumsBlock = ({
                 />
                 <span className="checkMarkRed"></span>
               </label>
-              <span className="vocalText" contenteditable="true">
+              <span
+                className="vocalText"
+                contenteditable="true"
+                onKeyPress={(e) => handleKeyPress(e)}
+              >
                 Drums
               </span>
               <span
@@ -304,6 +320,12 @@ const DrumsBlock = ({
                   className="plusIconI"
                   onClick={() => setIsAdd(!isAdd)}
                 ></div>
+                {isAdd && (
+                  <div
+                    className="fullscreen"
+                    onClick={() => setIsAdd(false)}
+                  ></div>
+                )}
                 <ul className={isAdd ? "ulList isBlock" : "ulList"}>
                   <li onClick={() => clickAddRow("drumsKit")}>Drums Kit</li>
                   <li onClick={() => clickAddRow("fx")}>Fx</li>
