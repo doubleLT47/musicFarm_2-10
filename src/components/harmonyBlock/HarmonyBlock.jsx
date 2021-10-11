@@ -20,6 +20,7 @@ const HarmonyBlock = ({
   renameTrack,
   deleteRowNumber,
   setDeleteRowNumber,
+  countScript,
 }) => {
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
@@ -33,21 +34,12 @@ const HarmonyBlock = ({
   const [gamut, setGamut] = useState("Major");
   const [typeHead, setTypeHead] = useState("New");
   const [newPattern, setNewPattern] = useState(false);
-  const [countScript, setCountScript] = useState(1);
 
   const refActive1 = useRef(active1);
 
   useEffect(() => {
     redCheck === null && setActive1(refActive1.current);
   }, [redCheck]);
-
-  setTimeout(() => {
-    if (countScript === 16) {
-      setCountScript(1);
-    } else {
-      setCountScript(countScript + 1);
-    }
-  }, vocalVolDr);
 
   if (redCheck !== null) {
     active1 && setActive1(false);
@@ -651,73 +643,31 @@ const HarmonyBlock = ({
               <td>
                 <span
                   className={
-                    countScript === 1 ? "patternO bold onPlay" : "patternO bold"
+                    redCheck !== index
+                      ? "patternO bold"
+                      : countScript === 1
+                      ? "patternO bold onPlay"
+                      : "patternO bold"
                   }
                 >
                   1
                 </span>
                 <span
-                  className={countScript === 2 ? "patternO onPlay" : "patternO"}
-                >
-                  e
-                </span>
-                <span
                   className={
-                    countScript === 3 ? "patternO bold onPlay" : "patternO bold"
-                  }
-                >
-                  +
-                </span>
-                <span
-                  className={countScript === 4 ? "patternO onPlay" : "patternO"}
-                >
-                  a
-                </span>
-              </td>
-              <td>
-                <span
-                  className={
-                    countScript === 5 ? "patternO bold onPlay" : "patternO bold"
-                  }
-                >
-                  2
-                </span>
-                <span
-                  className={countScript === 6 ? "patternO onPlay" : "patternO"}
-                >
-                  e
-                </span>
-                <span
-                  className={
-                    countScript === 7 ? "patternO bold onPlay" : "patternO bold"
-                  }
-                >
-                  +
-                </span>
-                <span
-                  className={countScript === 8 ? "patternO onPlay" : "patternO"}
-                >
-                  a
-                </span>
-              </td>
-              <td>
-                <span
-                  className={
-                    countScript === 9 ? "patternO bold onPlay" : "patternO bold"
-                  }
-                >
-                  3
-                </span>
-                <span
-                  className={
-                    countScript === 10 ? "patternO onPlay" : "patternO"
+                    redCheck !== index
+                      ? "patternO"
+                      : countScript === 2
+                      ? "patternO onPlay"
+                      : "patternO"
                   }
                 >
                   e
                 </span>
                 <span
                   className={
-                    countScript === 11
+                    redCheck !== index
+                      ? "patternO bold"
+                      : countScript === 3
                       ? "patternO bold onPlay"
                       : "patternO bold"
                   }
@@ -726,7 +676,11 @@ const HarmonyBlock = ({
                 </span>
                 <span
                   className={
-                    countScript === 12 ? "patternO onPlay" : "patternO"
+                    redCheck !== index
+                      ? "patternO"
+                      : countScript === 4
+                      ? "patternO onPlay"
+                      : "patternO"
                   }
                 >
                   a
@@ -735,7 +689,101 @@ const HarmonyBlock = ({
               <td>
                 <span
                   className={
-                    countScript === 13
+                    redCheck !== index
+                      ? "patternO bold"
+                      : countScript === 5
+                      ? "patternO bold onPlay"
+                      : "patternO bold"
+                  }
+                >
+                  2
+                </span>
+                <span
+                  className={
+                    redCheck !== index
+                      ? "patternO"
+                      : countScript === 6
+                      ? "patternO onPlay"
+                      : "patternO"
+                  }
+                >
+                  e
+                </span>
+                <span
+                  className={
+                    redCheck !== index
+                      ? "patternO bold"
+                      : countScript === 7
+                      ? "patternO bold onPlay"
+                      : "patternO bold"
+                  }
+                >
+                  +
+                </span>
+                <span
+                  className={
+                    redCheck !== index
+                      ? "patternO"
+                      : countScript === 8
+                      ? "patternO onPlay"
+                      : "patternO"
+                  }
+                >
+                  a
+                </span>
+              </td>
+              <td>
+                <span
+                  className={
+                    redCheck !== index
+                      ? "patternO bold"
+                      : countScript === 9
+                      ? "patternO bold onPlay"
+                      : "patternO bold"
+                  }
+                >
+                  3
+                </span>
+                <span
+                  className={
+                    redCheck !== index
+                      ? "patternO"
+                      : countScript === 10
+                      ? "patternO onPlay"
+                      : "patternO"
+                  }
+                >
+                  e
+                </span>
+                <span
+                  className={
+                    redCheck !== index
+                      ? "patternO bold"
+                      : countScript === 11
+                      ? "patternO bold onPlay"
+                      : "patternO bold"
+                  }
+                >
+                  +
+                </span>
+                <span
+                  className={
+                    redCheck !== index
+                      ? "patternO"
+                      : countScript === 12
+                      ? "patternO onPlay"
+                      : "patternO"
+                  }
+                >
+                  a
+                </span>
+              </td>
+              <td>
+                <span
+                  className={
+                    redCheck !== index
+                      ? "patternO bold"
+                      : countScript === 13
                       ? "patternO bold onPlay"
                       : "patternO bold"
                   }
@@ -744,14 +792,20 @@ const HarmonyBlock = ({
                 </span>
                 <span
                   className={
-                    countScript === 14 ? "patternO onPlay" : "patternO"
+                    redCheck !== index
+                      ? "patternO"
+                      : countScript === 14
+                      ? "patternO onPlay"
+                      : "patternO"
                   }
                 >
                   e
                 </span>
                 <span
                   className={
-                    countScript === 15
+                    redCheck !== index
+                      ? "patternO bold"
+                      : countScript === 15
                       ? "patternO bold onPlay"
                       : "patternO bold"
                   }
@@ -760,7 +814,11 @@ const HarmonyBlock = ({
                 </span>
                 <span
                   className={
-                    countScript === 16 ? "patternO onPlay" : "patternO"
+                    redCheck !== index
+                      ? "patternO"
+                      : countScript === 16
+                      ? "patternO onPlay"
+                      : "patternO"
                   }
                 >
                   a

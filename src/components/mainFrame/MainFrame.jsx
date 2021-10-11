@@ -18,6 +18,7 @@ const MainFrame = ({
   renameTrack,
   deleteRowNumber,
   setDeleteRowNumber,
+  countScript,
 }) => {
   const [redCheck, setRedCheck] = useState(null);
 
@@ -42,6 +43,7 @@ const MainFrame = ({
             renameTrack={renameTrack}
             deleteRowNumber={deleteRowNumber}
             setDeleteRowNumber={setDeleteRowNumber}
+            countScript={countScript}
           />
         ) : null;
       })}

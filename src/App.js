@@ -11,6 +11,15 @@ const App = () => {
 
   const [deleteNumber, setDeleteNumber] = useState(null);
   const [vxCheck, setVxCheck] = useState(null);
+  const [countScript, setCountScript] = useState(1);
+
+  setTimeout(() => {
+    if (countScript === 16) {
+      setCountScript(1);
+    } else {
+      setCountScript(countScript + 1);
+    }
+  }, 74);
 
   const addBlock = (block) => {
     if (block === "drums") {
@@ -301,6 +310,7 @@ const App = () => {
         renameTrack={renameTrack}
         deleteRowNumber={deleteRowNumber}
         setDeleteRowNumber={setDeleteRowNumber}
+        countScript={countScript}
       />
       <Modal deleteNumber={deleteNumber} deleteEl={deleteBlock} />
     </div>
