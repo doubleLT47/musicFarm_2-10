@@ -79,10 +79,12 @@ const App = () => {
   const moveBlock = (option, index) => {
     if (option === "up") {
       const newBlocks = blocks.map((block) => block);
-      const tmp = newBlocks[index];
-      newBlocks[index] = newBlocks[index - 1];
-      newBlocks[index - 1] = tmp;
-      setBlocks(newBlocks);
+      if (newBlocks[index - 1] !== undefined) {
+        const tmp = newBlocks[index];
+        newBlocks[index] = newBlocks[index - 1];
+        newBlocks[index - 1] = tmp;
+        setBlocks(newBlocks);
+      }
     } else if (option === "down") {
       const newBlocks = blocks.map((block) => block);
       if (newBlocks[index + 1] !== undefined) {
