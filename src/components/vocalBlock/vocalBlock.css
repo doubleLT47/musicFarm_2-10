@@ -335,3 +335,24 @@ td {
 .lightGrey {
   background-color: var(--secondary-bg);
 }
+
+.patternO {
+  display: inline-block;
+  font-size: 12px;
+  width: 13px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  vertical-align: middle;
+  background-color: #ffffff;
+  margin: 3px 3px 3px 4px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.onPlay {
+  background-color: red;
+}

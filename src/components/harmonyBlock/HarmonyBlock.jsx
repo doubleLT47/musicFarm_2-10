@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./harmonyBlock.css";
 import FileControl from "../fileControl/FileControl";
 import HarmonyRow from "../harmonyRow/HarmonyRow";
@@ -32,12 +32,26 @@ const HarmonyBlock = ({
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
   const [typeHead, setTypeHead] = useState("New");
+  const [newPattern, setNewPattern] = useState(false);
+  const [countScript, setCountScript] = useState(1);
+
+  const refActive1 = useRef(active1);
+
+  useEffect(() => {
+    redCheck === null && setActive1(refActive1.current);
+  }, [redCheck]);
+
+  setTimeout(() => {
+    if (countScript === 16) {
+      setCountScript(1);
+    } else {
+      setCountScript(countScript + 1);
+    }
+  }, vocalVolDr);
 
   if (redCheck !== null) {
     active1 && setActive1(false);
   }
-
-  const [newPattern, setNewPattern] = useState(false);
 
   const handleChange = () => {
     if (vxCheck === index) {
@@ -126,7 +140,10 @@ const HarmonyBlock = ({
                 type="checkbox"
                 className="inputCheckbox"
                 checked={active1}
-                onChange={(e) => setActive1(!active1)}
+                onChange={(e) => {
+                  setActive1(!active1);
+                  refActive1.current = !active1;
+                }}
               />
             </td>
             <td className="head2">
@@ -631,7 +648,124 @@ const HarmonyBlock = ({
               <td>note</td>
               <td style={{ textAlign: "center" }}>x</td>
               <td>vol</td>
-              <td colSpan="4">pattern</td>
+              <td>
+                <span
+                  className={
+                    countScript === 1 ? "patternO bold onPlay" : "patternO bold"
+                  }
+                >
+                  1
+                </span>
+                <span
+                  className={countScript === 2 ? "patternO onPlay" : "patternO"}
+                >
+                  e
+                </span>
+                <span
+                  className={
+                    countScript === 3 ? "patternO bold onPlay" : "patternO bold"
+                  }
+                >
+                  +
+                </span>
+                <span
+                  className={countScript === 4 ? "patternO onPlay" : "patternO"}
+                >
+                  a
+                </span>
+              </td>
+              <td>
+                <span
+                  className={
+                    countScript === 5 ? "patternO bold onPlay" : "patternO bold"
+                  }
+                >
+                  2
+                </span>
+                <span
+                  className={countScript === 6 ? "patternO onPlay" : "patternO"}
+                >
+                  e
+                </span>
+                <span
+                  className={
+                    countScript === 7 ? "patternO bold onPlay" : "patternO bold"
+                  }
+                >
+                  +
+                </span>
+                <span
+                  className={countScript === 8 ? "patternO onPlay" : "patternO"}
+                >
+                  a
+                </span>
+              </td>
+              <td>
+                <span
+                  className={
+                    countScript === 9 ? "patternO bold onPlay" : "patternO bold"
+                  }
+                >
+                  3
+                </span>
+                <span
+                  className={
+                    countScript === 10 ? "patternO onPlay" : "patternO"
+                  }
+                >
+                  e
+                </span>
+                <span
+                  className={
+                    countScript === 11
+                      ? "patternO bold onPlay"
+                      : "patternO bold"
+                  }
+                >
+                  +
+                </span>
+                <span
+                  className={
+                    countScript === 12 ? "patternO onPlay" : "patternO"
+                  }
+                >
+                  a
+                </span>
+              </td>
+              <td>
+                <span
+                  className={
+                    countScript === 13
+                      ? "patternO bold onPlay"
+                      : "patternO bold"
+                  }
+                >
+                  4
+                </span>
+                <span
+                  className={
+                    countScript === 14 ? "patternO onPlay" : "patternO"
+                  }
+                >
+                  e
+                </span>
+                <span
+                  className={
+                    countScript === 15
+                      ? "patternO bold onPlay"
+                      : "patternO bold"
+                  }
+                >
+                  +
+                </span>
+                <span
+                  className={
+                    countScript === 16 ? "patternO onPlay" : "patternO"
+                  }
+                >
+                  a
+                </span>
+              </td>
             </tr>
             {data.rows.map((row, index) => (
               <HarmonyRow

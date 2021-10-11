@@ -11,7 +11,6 @@ const App = () => {
 
   const [deleteNumber, setDeleteNumber] = useState(null);
   const [vxCheck, setVxCheck] = useState(null);
-  console.log(deleteNumber);
 
   const addBlock = (block) => {
     if (block === "drums") {
@@ -111,7 +110,7 @@ const App = () => {
     const newBlocks = blocks.map((block) => block);
     if (blocks[i].type === "drums") {
       if (option === "drumsKit") {
-        const eRow = [
+        newBlocks[i].rows.push(
           {
             trackName: "Drums 5",
             instrument: "49",
@@ -141,10 +140,8 @@ const App = () => {
             instrument: "35",
             vol: "100",
             note: "1",
-          },
-        ];
-
-        newBlocks[i].rows.push(eRow);
+          }
+        );
         setBlocks(newBlocks);
       } else if (option === "fx") {
         newBlocks[i].rows.push({
