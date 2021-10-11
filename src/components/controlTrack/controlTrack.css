@@ -15,6 +15,9 @@
   margin-left: 2px;
   padding: 2px;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
 }
 
 .trackName:focus {

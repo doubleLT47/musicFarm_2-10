@@ -13,52 +13,23 @@ const DrumsBlock = ({
   redCheck,
   setRedCheck,
   moveBlock,
+  data,
+  renameBlock,
+  addRow,
+  deleteRow,
+  renameTrack,
+  deleteRowNumber,
+  setDeleteRowNumber,
 }) => {
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
-  const [deleteRowNumber, setDeleteRowNumber] = useState(null);
 
   const [vocalVolDr, setVocalVolDr] = useState("74");
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
   const [typeHead, setTypeHead] = useState("New");
-  const [lenRow, setLenRow] = useState([
-    { instrument: "35", vol: "127", note: "1" },
-  ]);
+
   const [newPattern, setNewPattern] = useState(false);
-
-  // isChecked && setActive3(true);
-
-  const addRow = (option) => {
-    if (option === "drumsKit") {
-      const eRow = [
-        { trackName: "Drums 5", instrument: "49", vol: "100", note: "9" },
-        { trackName: "Drums 4", instrument: "46", vol: "100", note: "9" },
-        { trackName: "Drums 3", instrument: "42", vol: "100", note: "1" },
-        { trackName: "Drums 2", instrument: "38", vol: "100", note: "1" },
-        { trackName: "Drums 1", instrument: "35", vol: "100", note: "1" },
-      ];
-      const newLenRow = [...lenRow, ...eRow];
-      setLenRow(newLenRow);
-    }
-    if (option === "fx") {
-      const newRow = [
-        ...lenRow,
-        { trackName: "Fx", instrument: "82", vol: "127", note: "9" },
-      ];
-      setLenRow(newRow);
-    }
-  };
-
-  const deleteRow = (option, i) => {
-    if (option === "delete") {
-      const newBlocks = lenRow.filter((lr, index) => index !== i);
-      setLenRow(newBlocks);
-      setDeleteRowNumber(null);
-    } else if (option === "cancel") {
-      setDeleteRowNumber(null);
-    }
-  };
 
   if (redCheck !== null) {
     active1 && setActive1(false);
@@ -82,13 +53,19 @@ const DrumsBlock = ({
 
   const clickAddRow = (option) => {
     setIsAdd(false);
-    addRow(option);
+    addRow(option, null, index);
   };
 
   const handleKeyPress = (e) => {
     if (e.which === 13) {
       e.preventDefault();
     }
+  };
+
+  const handleRename = () => {
+    const el = document.querySelector(`#drumsName${index}`).innerHTML;
+
+    renameBlock(el, index);
   };
 
   return (
@@ -104,12 +81,14 @@ const DrumsBlock = ({
           <div className="controlT">
             <span style={{ marginLeft: "10px", fontWeight: "bold" }}>D</span>
             <span style={{ marginLeft: "24px", fontWeight: "bold" }}>R</span>
-            {lenRow.map((el, index) => (
+            {data.rows.map((el, i) => (
               <ControlTrack
-                name={el.trackName}
-                index={index}
+                data={el}
+                index={i}
+                bi={index}
                 setDeleteRowNumber={setDeleteRowNumber}
                 key={index}
+                renameTrack={renameTrack}
               />
             ))}
           </div>
@@ -136,10 +115,12 @@ const DrumsBlock = ({
               </label>
               <span
                 className="vocalText"
+                id={`drumsName${index}`}
                 contenteditable="true"
                 onKeyPress={(e) => handleKeyPress(e)}
+                onBlur={handleRename}
               >
-                Drums
+                {data.blockName}
               </span>
               <span
                 className={vxCheck === index ? "vxText vxTextGreen" : "vxText"}
@@ -343,7 +324,7 @@ const DrumsBlock = ({
               <td>vol</td>
               <td colSpan="4">pattern</td>
             </tr>
-            {lenRow.map((row, index) => (
+            {data.rows.map((row, index) => (
               <DrumsRow
                 key={index}
                 row={row}
@@ -354,7 +335,7 @@ const DrumsBlock = ({
           </tbody>
         </table>
       </div>
-      <Modal deleteNumber={deleteRowNumber} deleteEl={deleteRow} />
+      <Modal deleteNumber={deleteRowNumber} bi={index} deleteEl={deleteRow} />
     </div>
   );
 };

@@ -6,15 +6,28 @@ import "./main.css";
 
 const block = { drums: DrumsBlock, harmony: HarmonyBlock, vocal: VocalBlock };
 
-const MainFrame = ({ blocks, setDeleteNumber, vxCheck, setVxCheck }) => {
+const MainFrame = ({
+  blocks,
+  setDeleteNumber,
+  vxCheck,
+  setVxCheck,
+  moveBlock,
+  renameBlock,
+  addRow,
+  deleteRow,
+  renameTrack,
+  deleteRowNumber,
+  setDeleteRowNumber,
+}) => {
   const [redCheck, setRedCheck] = useState(null);
 
   return (
     <div className="mainFrame">
       {blocks.map((el, index) => {
-        const Block = block[el];
+        const Block = block[el.type];
         return Block ? (
           <Block
+            data={el}
             index={index}
             key={index}
             setDeleteNumber={setDeleteNumber}
@@ -22,6 +35,13 @@ const MainFrame = ({ blocks, setDeleteNumber, vxCheck, setVxCheck }) => {
             setVxCheck={setVxCheck}
             redCheck={redCheck}
             setRedCheck={setRedCheck}
+            moveBlock={moveBlock}
+            renameBlock={renameBlock}
+            addRow={addRow}
+            deleteRow={deleteRow}
+            renameTrack={renameTrack}
+            deleteRowNumber={deleteRowNumber}
+            setDeleteRowNumber={setDeleteRowNumber}
           />
         ) : null;
       })}

@@ -24,7 +24,9 @@
   display: none;
   width: 95px;
   position: absolute;
-  bottom: 25px;
+  top: 25px;
+  right: 0;
+  z-index: 9;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid var(--border-color);

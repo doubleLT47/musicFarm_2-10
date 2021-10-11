@@ -1,7 +1,7 @@
 import React from "react";
 import "./file.css";
 
-const FileControl = ({ bc, setNewPattern, addBlock }) => {
+const FileControl = ({ bc, setNewPattern, addBlock, moveBlock, index }) => {
   return (
     <div className={bc ? "fileControl bgFileControl" : "fileControl"}>
       <div className="fileItem">
@@ -46,6 +46,14 @@ const FileControl = ({ bc, setNewPattern, addBlock }) => {
               <li onClick={() => addBlock("drums")}>Drums</li>
               <li onClick={() => addBlock("harmony")}>Harmony</li>
               <li onClick={() => addBlock("vocal")}>Vocal</li>
+            </ul>
+          </div>
+        )}
+        {moveBlock !== undefined && (
+          <div className="settingOption">
+            <ul>
+              <li onClick={() => moveBlock("up", index)}>Up</li>
+              <li onClick={() => moveBlock("down", index)}>Down</li>
             </ul>
           </div>
         )}

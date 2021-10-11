@@ -12,11 +12,18 @@ const HarmonyBlock = ({
   setVxCheck,
   redCheck,
   setRedCheck,
+  moveBlock,
+  data,
+  renameBlock,
+  addRow,
+  deleteRow,
+  renameTrack,
+  deleteRowNumber,
+  setDeleteRowNumber,
 }) => {
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
   const [isIC, setIsIC] = useState(false);
-  const [deleteRowNumber, setDeleteRowNumber] = useState(null);
 
   const [trackNameNew, setTrackNameNew] = useState("");
   const [instrumentNew, setInstrumentNew] = useState("0");
@@ -25,55 +32,12 @@ const HarmonyBlock = ({
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
   const [typeHead, setTypeHead] = useState("New");
-  const [lenRow, setLenRow] = useState([
-    { trackName: "Name", instrument: "12", vol: "74", note: "33" },
-  ]);
 
   if (redCheck !== null) {
     active1 && setActive1(false);
   }
 
   const [newPattern, setNewPattern] = useState(false);
-
-  const addRow = (option, data) => {
-    if (option === "instrument") {
-      const newLenRow = [
-        ...lenRow,
-        {
-          trackName: data.trackNameNew,
-          instrument: data.instrumentNew,
-          note: data.noteNew,
-          vol: "100",
-        },
-      ];
-      setLenRow(newLenRow);
-    }
-
-    if (option === "chord") {
-      const newRow = [
-        ...lenRow,
-        { trackName: "Chord", instrument: "48", vol: "100", note: "48" },
-      ];
-      setLenRow(newRow);
-    }
-    if (option === "fx") {
-      const newRow = [
-        ...lenRow,
-        { trackName: "Fx", instrument: "40", vol: "100", note: "48" },
-      ];
-      setLenRow(newRow);
-    }
-  };
-
-  const deleteRow = (option, i) => {
-    if (option === "delete") {
-      const newBlocks = lenRow.filter((lr, index) => index !== i);
-      setLenRow(newBlocks);
-      setDeleteRowNumber(null);
-    } else if (option === "cancel") {
-      setDeleteRowNumber(null);
-    }
-  };
 
   const handleChange = () => {
     if (vxCheck === index) {
@@ -103,31 +67,54 @@ const HarmonyBlock = ({
 
   const clickAddRow = (option) => {
     setIsAdd(false);
-    addRow(option, {
-      trackNameNew,
-      instrumentNew,
-      noteNew,
-    });
+    addRow(
+      option,
+      {
+        trackNameNew,
+        instrumentNew,
+        noteNew,
+      },
+      index
+    );
     option === "instrument" && setIsIC(false);
     option === "instrument" && setTrackNameNew("");
     option === "instrument" && setInstrumentNew("0");
     option === "instrument" && setNoteNew("0");
   };
 
+  const handleKeyPress = (e) => {
+    if (e.which === 13) {
+      e.preventDefault();
+    }
+  };
+
+  const handleRename = () => {
+    const el = document.querySelector(`#harmonyName${index}`).innerHTML;
+
+    renameBlock(el, index);
+  };
+
   return (
     <div className="harmonyBlock">
       <div className="container">
         <div className="leftC">
-          <FileControl bc={true} setNewPattern={setNewPattern} />
+          <FileControl
+            bc={true}
+            setNewPattern={setNewPattern}
+            moveBlock={moveBlock}
+            index={index}
+          />
           <div className="controlT">
             <span style={{ marginLeft: "10px", fontWeight: "bold" }}>D</span>
             <span style={{ marginLeft: "24px", fontWeight: "bold" }}>R</span>
-            {lenRow.map((el, index) => (
+            {data.rows.map((el, i) => (
               <ControlTrack
-                name={el.trackName}
-                index={index}
+                data={el}
+                index={i}
+                bi={index}
                 setDeleteRowNumber={setDeleteRowNumber}
                 key={index}
+                renameTrack={renameTrack}
               />
             ))}
           </div>
@@ -152,8 +139,14 @@ const HarmonyBlock = ({
                 />
                 <span className="checkMarkRed"></span>
               </label>
-              <span className="vocalText" contenteditable="true">
-                Harmony
+              <span
+                className="vocalText"
+                contenteditable="true"
+                onKeyPress={(e) => handleKeyPress(e)}
+                id={`harmonyName${index}`}
+                onBlur={handleRename}
+              >
+                {data.blockName}
               </span>
               <span
                 className={vxCheck === index ? "vxText vxTextGreen" : "vxText"}
@@ -334,6 +327,12 @@ const HarmonyBlock = ({
                   className="plusIconI"
                   onClick={() => setIsAdd(!isAdd)}
                 ></div>
+                {isAdd && (
+                  <div
+                    className="fullscreen"
+                    onClick={() => setIsAdd(false)}
+                  ></div>
+                )}
                 <ul className={isAdd ? "ulList isBlock" : "ulList"}>
                   <li style={{ position: "relative" }}>
                     <span onClick={() => setIsIC(!isIC)}>Instrument</span>
@@ -634,7 +633,7 @@ const HarmonyBlock = ({
               <td>vol</td>
               <td colSpan="4">pattern</td>
             </tr>
-            {lenRow.map((row, index) => (
+            {data.rows.map((row, index) => (
               <HarmonyRow
                 key={index}
                 row={row}
@@ -645,7 +644,7 @@ const HarmonyBlock = ({
           </tbody>
         </table>
       </div>
-      <Modal deleteNumber={deleteRowNumber} deleteEl={deleteRow} />
+      <Modal deleteNumber={deleteRowNumber} bi={index} deleteEl={deleteRow} />
     </div>
   );
 };

@@ -6,29 +6,18 @@ const ControlBlock = ({ addBlock }) => {
   const [bpmValue, setBpmValue] = useState(100);
   const [loopValue, setLoopValue] = useState("loop");
   const [volValue, setVolValue] = useState(90);
+  const [checkboxCT, setCheckboxCT] = useState(true);
+
   return (
     <div className="controlBlock">
       <div className="leftControl">
-        {/* <div className="settingCt">
-          <img
-            className="imgIcon"
-            src="./assets/icon/outline_setting_black_24dp.png"
-            alt=""
-          />
-          <div className="settingOption">
-            <h6>Select one</h6>
-            <ul>
-              <li onClick={() => addBlock("drums")}>Drums</li>
-              <li onClick={() => addBlock("harmony")}>Harmony</li>
-              <li onClick={() => addBlock("vocal")}>Vocal</li>
-            </ul>
-          </div>
-        </div> */}
         <FileControl bc={true} addBlock={addBlock} />
       </div>
       <div className="mainControl">
         <input
           type="checkbox"
+          checked={checkboxCT}
+          onChange={(e) => setCheckboxCT(!checkboxCT)}
           style={{ marginLeft: "7px" }}
           className="inputCheckbox"
         />

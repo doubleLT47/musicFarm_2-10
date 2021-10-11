@@ -12,73 +12,24 @@ const VocalBlock = ({
   setVxCheck,
   redCheck,
   setRedCheck,
+  moveBlock,
+  data,
+  renameBlock,
+  addRow,
+  deleteRow,
+  renameTrack,
+  deleteRowNumber,
+  setDeleteRowNumber,
 }) => {
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
-  const [deleteRowNumber, setDeleteRowNumber] = useState(null);
 
   const [vocalVolDr, setVocalVolDr] = useState("74");
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
   const [typeHead, setTypeHead] = useState("New");
 
-  const [lenRow, setLenRow] = useState([
-    { trackName: "", instrument: "0", note: "33", vol: "74" },
-  ]);
   const [newPattern, setNewPattern] = useState(false);
-
-  const handleMouseLeave = (event) => {
-    // console.log("a");
-    // document.addEventListener(
-    //   "click",
-    //   () => {
-    //     setIsAdd(false);
-    //   },
-    //   false
-    // );
-  };
-
-  const addRow = (option) => {
-    if (option === "melody") {
-      const eRow = [
-        { trackName: "Melody 8", instrument: "0", vol: "100", note: "60" },
-        { trackName: "Melody 7", instrument: "0", vol: "100", note: "59" },
-        { trackName: "Melody 6", instrument: "0", vol: "100", note: "57" },
-        { trackName: "Melody 5", instrument: "0", vol: "100", note: "55" },
-        { trackName: "Melody 4", instrument: "0", vol: "100", note: "53" },
-        { trackName: "Melody 3", instrument: "0", vol: "100", note: "52" },
-        { trackName: "Melody 2", instrument: "0", vol: "100", note: "50" },
-        { trackName: "Melody 1", instrument: "0", vol: "100", note: "48" },
-      ];
-      const newLenRow = [...lenRow, ...eRow];
-      setLenRow(newLenRow);
-    }
-
-    if (option === "singleNote") {
-      const newRow = [
-        ...lenRow,
-        { trackName: "Melody", instrument: "0", vol: "100", note: "48" },
-      ];
-      setLenRow(newRow);
-    }
-    if (option === "vocal") {
-      const newRow = [
-        ...lenRow,
-        { trackName: "Vocal", instrument: "40", vol: "100", note: "48" },
-      ];
-      setLenRow(newRow);
-    }
-  };
-
-  const deleteRow = (option, i) => {
-    if (option === "delete") {
-      const newBlocks = lenRow.filter((lr, index) => index !== i);
-      setLenRow(newBlocks);
-      setDeleteRowNumber(null);
-    } else if (option === "cancel") {
-      setDeleteRowNumber(null);
-    }
-  };
 
   if (redCheck !== null) {
     active1 && setActive1(false);
@@ -102,23 +53,42 @@ const VocalBlock = ({
 
   const clickAddRow = (option) => {
     setIsAdd(false);
-    addRow(option);
+    addRow(option, null, index);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.which === 13) {
+      e.preventDefault();
+    }
+  };
+
+  const handleRename = () => {
+    const el = document.querySelector(`#vocalName${index}`).innerHTML;
+
+    renameBlock(el, index);
   };
 
   return (
     <div className="vocalBlock">
       <div className="container">
         <div className="leftC">
-          <FileControl bc={true} setNewPattern={setNewPattern} />
+          <FileControl
+            bc={true}
+            setNewPattern={setNewPattern}
+            moveBlock={moveBlock}
+            index={index}
+          />
           <div className="controlT">
             <span style={{ marginLeft: "10px", fontWeight: "bold" }}>D</span>
             <span style={{ marginLeft: "24px", fontWeight: "bold" }}>R</span>
-            {lenRow.map((el, index) => (
+            {data.rows.map((el, i) => (
               <ControlTrack
-                name={el.trackName}
-                index={index}
+                data={el}
+                index={i}
+                bi={index}
                 setDeleteRowNumber={setDeleteRowNumber}
-                key={index}
+                key={i}
+                renameTrack={renameTrack}
               />
             ))}
           </div>
@@ -143,8 +113,14 @@ const VocalBlock = ({
                 />
                 <span className="checkMarkRed"></span>
               </label>
-              <span className="vocalText" contenteditable="true">
-                Vocal
+              <span
+                className="vocalText"
+                contenteditable="true"
+                onKeyPress={(e) => handleKeyPress(e)}
+                id={`vocalName${index}`}
+                onBlur={handleRename}
+              >
+                {data.blockName}
               </span>
               <span
                 className={vxCheck === index ? "vxText vxTextGreen" : "vxText"}
@@ -330,10 +306,13 @@ const VocalBlock = ({
                   className="plusIconI"
                   onClick={() => setIsAdd(!isAdd)}
                 ></div>
-                <ul
-                  onMouseLeave={handleMouseLeave}
-                  className={isAdd ? "ulList isBlock" : "ulList"}
-                >
+                {isAdd && (
+                  <div
+                    className="fullscreen"
+                    onClick={() => setIsAdd(false)}
+                  ></div>
+                )}
+                <ul className={isAdd ? "ulList isBlock" : "ulList"}>
                   <li onClick={() => clickAddRow("melody")}>Melody</li>
                   <li onClick={() => clickAddRow("singleNote")}>Single note</li>
                   <li onClick={() => clickAddRow("vocal")}>Vocal</li>
@@ -351,7 +330,7 @@ const VocalBlock = ({
               <td>vol</td>
               <td colSpan="4">pattern</td>
             </tr>
-            {lenRow.map((row, index) => (
+            {data.rows.map((row, index) => (
               <VocalRow
                 key={index}
                 row={row}
@@ -362,7 +341,7 @@ const VocalBlock = ({
           </tbody>
         </table>
       </div>
-      <Modal deleteNumber={deleteRowNumber} deleteEl={deleteRow} />
+      <Modal deleteNumber={deleteRowNumber} bi={index} deleteEl={deleteRow} />
     </div>
   );
 };

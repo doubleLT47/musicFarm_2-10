@@ -135,6 +135,9 @@ td {
 .vocalText {
   color: #fff;
   width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
   margin-left: 8px;
   font-size: 12px;
   position: absolute;
@@ -225,6 +228,14 @@ td {
 
 .isBlock {
   display: block !important;
+}
+
+.fullscreen {
+  position: absolute;
+  top: -100vh;
+  left: -100vw;
+  width: 150vw;
+  height: 200vh;
 }
 
 .ulList {

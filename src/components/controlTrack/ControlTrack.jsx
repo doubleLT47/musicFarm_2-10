@@ -1,7 +1,19 @@
 import React from "react";
 import "./controlTrack.css";
 
-const ControlTrack = ({ name, index, setDeleteRowNumber }) => {
+const ControlTrack = ({ data, bi, index, setDeleteRowNumber, renameTrack }) => {
+  const handleKeyUp = (e) => {
+    if (e.which === 13) {
+      e.preventDefault();
+    }
+  };
+
+  const handleBlur = () => {
+    const el = document.getElementById(`trackName${index}&${bi}`).innerHTML;
+
+    renameTrack(el, bi, index);
+  };
+
   return (
     <div className="controlTrack">
       <label className="cbContainerOrange">
@@ -14,10 +26,16 @@ const ControlTrack = ({ name, index, setDeleteRowNumber }) => {
       </label>
       <div
         className="deleteTrackIcon"
-        onClick={() => setDeleteRowNumber(index)}
+        onClick={() => setDeleteRowNumber(`${index}&${bi}`)}
       ></div>
-      <div className="trackName" contenteditable="true">
-        {name}
+      <div
+        className="trackName"
+        contenteditable="true"
+        onKeyPress={(e) => handleKeyUp(e)}
+        id={`trackName${index}&${bi}`}
+        onBlur={handleBlur}
+      >
+        {data.trackName}
       </div>
     </div>
   );
