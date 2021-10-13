@@ -1,10 +1,16 @@
 import { useState } from "react";
 
-const VocalRow = ({ row, bi, ri, handleOnNotes, handleOnPlay }) => {
-  const [instrument1, setInstrument1] = useState(row.instrument);
+const VocalRow = ({
+  row,
+  bi,
+  ri,
+  handleOnNotes,
+  handleOnPlay,
+  handleInstrumentChange,
+  handleNoteChange,
+  handleVolChange,
+}) => {
   const [checkX1, setCheckX1] = useState(false);
-  const [vol1, setVol1] = useState(row.vol);
-  const [note1, setNote1] = useState(row.note);
 
   return (
     <tr style={{ backgroundColor: "#bbbbbb" }}>
@@ -19,8 +25,8 @@ const VocalRow = ({ row, bi, ri, handleOnNotes, handleOnPlay }) => {
         <select
           name=""
           className="select"
-          value={instrument1}
-          onChange={(e) => setInstrument1(e.target.value)}
+          value={row.instrument}
+          onChange={(e) => handleInstrumentChange(bi, ri, e.target.value)}
         >
           <option value="0">000&nbsp;&nbsp;Piano</option>
           <option value="1">001&nbsp;&nbsp;Bright Piano</option>
@@ -156,8 +162,8 @@ const VocalRow = ({ row, bi, ri, handleOnNotes, handleOnPlay }) => {
         <select
           name=""
           className="select"
-          value={note1}
-          onChange={(e) => setNote1(e.target.value)}
+          value={row.note}
+          onChange={(e) => handleNoteChange(bi, ri, e.target.value)}
         >
           <option value="0">C0</option>
           <option value="1">C#0</option>
@@ -299,8 +305,8 @@ const VocalRow = ({ row, bi, ri, handleOnNotes, handleOnPlay }) => {
       <td>
         <select
           className="select"
-          value={vol1}
-          onChange={(e) => setVol1(e.target.value)}
+          value={row.vol}
+          onChange={(e) => handleVolChange(bi, ri, e.target.value)}
         >
           <option value="127">127</option>
           <option value="126">126</option>

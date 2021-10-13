@@ -1,10 +1,13 @@
-import { useState } from "react";
-
-const DrumsRow = ({ row, handleOnNotes, bi, ri, handleOnPlay }) => {
-  const [instrument1, setInstrument1] = useState(row.instrument);
-  const [vol1, setVol1] = useState(row.vol);
-  const [note1, setNote1] = useState(row.note);
-
+const DrumsRow = ({
+  row,
+  handleOnNotes,
+  bi,
+  ri,
+  handleOnPlay,
+  handleInstrumentChange,
+  handleNoteChange,
+  handleVolChange,
+}) => {
   return (
     <tr style={{ backgroundColor: "#bbbbbb" }}>
       <td style={{ textAlign: "center" }}>
@@ -18,8 +21,8 @@ const DrumsRow = ({ row, handleOnNotes, bi, ri, handleOnPlay }) => {
         <select
           name=""
           className="select"
-          value={instrument1}
-          onChange={(e) => setInstrument1(e.target.value)}
+          value={row.instrument}
+          onChange={(e) => handleInstrumentChange(bi, ri, e.target.value)}
         >
           <option value="35">035&nbsp;&nbsp;Acoustic Bass Drum</option>
           <option value="36">036&nbsp;&nbsp;Bass Drum 1</option>
@@ -75,8 +78,8 @@ const DrumsRow = ({ row, handleOnNotes, bi, ri, handleOnPlay }) => {
         <select
           name=""
           className="select"
-          value={note1}
-          onChange={(e) => setNote1(e.target.value)}
+          value={row.note}
+          onChange={(e) => handleNoteChange(bi, ri, e.target.value)}
         >
           <option value="1">Dry</option>
           <option value="9">Room</option>
@@ -91,8 +94,8 @@ const DrumsRow = ({ row, handleOnNotes, bi, ri, handleOnPlay }) => {
       <td>
         <select
           className="select"
-          value={vol1}
-          onChange={(e) => setVol1(e.target.value)}
+          value={row.vol}
+          onChange={(e) => handleVolChange(bi, ri, e.target.value)}
         >
           <option value="127">127</option>
           <option value="126">126</option>

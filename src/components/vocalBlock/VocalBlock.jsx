@@ -24,6 +24,9 @@ const VocalBlock = ({
   handleOnNotes,
   handleRemoveOnNotes,
   handleOnPlay,
+  handleInstrumentChange,
+  handleNoteChange,
+  handleVolChange,
 }) => {
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
@@ -533,6 +536,9 @@ const VocalBlock = ({
                 ri={i}
                 handleOnNotes={handleOnNotes}
                 handleOnPlay={handleOnPlay}
+                handleInstrumentChange={handleInstrumentChange}
+                handleNoteChange={handleNoteChange}
+                handleVolChange={handleVolChange}
               />
             ))}
           </tbody>

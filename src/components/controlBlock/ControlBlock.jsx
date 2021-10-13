@@ -10,7 +10,8 @@ const ControlBlock = ({
   setVolume,
   loop,
   setLoop,
-  setAction,
+  playLoop,
+  stopLoop,
 }) => {
   const [checkboxCT, setCheckboxCT] = useState(true);
 
@@ -42,13 +43,13 @@ const ControlBlock = ({
           <span className="bpmText">BPM</span>
         </div>
         <div className="audioControlGroup">
-          <div className="audioControlItem" onClick={() => setAction("stop")}>
+          <div className="audioControlItem">
             <div className="icon squareIcon"></div>
           </div>
-          <div className="audioControlItem" onClick={() => setAction("pause")}>
+          <div className="audioControlItem" onClick={() => playLoop()}>
             <div className="icon triangleIcon"></div>
           </div>
-          <div className="audioControlItem" onClick={() => setAction("start")}>
+          <div className="audioControlItem" onClick={() => stopLoop()}>
             <div className="icon playIcon"></div>
           </div>
         </div>

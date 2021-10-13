@@ -1,10 +1,10 @@
 import BFrame from "./components/bottomFrame/BFrame";
 import "./app.css";
 import MainFrame from "./components/mainFrame/MainFrame";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Modal from "./components/modal/Modal";
 import { data } from "./staticData.js";
-import MIDISounds from "midi-sounds-react";
+import MIDISoundsInstrument from "midi-sounds-react";
 
 const App = () => {
   const [blocks, setBlocks] = useState(data);
@@ -12,15 +12,16 @@ const App = () => {
 
   const [deleteNumber, setDeleteNumber] = useState(null);
   const [vxCheck, setVxCheck] = useState(null);
-  const [countScript, setCountScript] = useState(1);
 
   const [bpm, setBpm] = useState(50);
   const [loop, setLoop] = useState(0);
   const [volume, setVolume] = useState(90);
-  const [action, setAction] = useState("stop");
-
-  const countRef = useRef(countScript);
-  var midiSounds = useRef();
+  var midiSoundsInstrument = useRef(),
+    midiSoundsDrum = useRef();
+  var listInstrument = [],
+    listDrums = [],
+    drumsData = [],
+    beatsData = [];
 
   const addBlock = (block) => {
     if (block === "drums") {
@@ -31,9 +32,9 @@ const App = () => {
           type: "drums",
           rows: [
             {
-              instrument: "35",
-              vol: "127",
-              note: "1",
+              instrument: 35,
+              vol: 127,
+              note: 1,
               onNotes: [],
               onPlay: true,
             },
@@ -50,9 +51,9 @@ const App = () => {
           rows: [
             {
               trackName: "Name",
-              instrument: "12",
-              vol: "74",
-              note: "33",
+              instrument: 12,
+              vol: 74,
+              note: 33,
               onNotes: [],
               onPlay: true,
             },
@@ -69,9 +70,9 @@ const App = () => {
           rows: [
             {
               trackName: "",
-              instrument: "0",
-              note: "33",
-              vol: "74",
+              instrument: 0,
+              note: 33,
+              vol: 74,
               onNotes: [],
               onPlay: true,
             },
@@ -131,41 +132,41 @@ const App = () => {
         newBlocks[i].rows.push(
           {
             trackName: "Drums 5",
-            instrument: "49",
-            vol: "100",
-            note: "9",
+            instrument: 49,
+            vol: 100,
+            note: 9,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Drums 4",
-            instrument: "46",
-            vol: "100",
-            note: "9",
+            instrument: 46,
+            vol: 100,
+            note: 9,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Drums 3",
-            instrument: "42",
-            vol: "100",
-            note: "1",
+            instrument: 42,
+            vol: 100,
+            note: 1,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Drums 2",
-            instrument: "38",
-            vol: "100",
-            note: "1",
+            instrument: 38,
+            vol: 100,
+            note: 1,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Drums 1",
-            instrument: "35",
-            vol: "100",
-            note: "1",
+            instrument: 35,
+            vol: 100,
+            note: 1,
             onNotes: [],
             onPlay: true,
           }
@@ -174,9 +175,9 @@ const App = () => {
       } else if (option === "fx") {
         newBlocks[i].rows.push({
           trackName: "Fx",
-          instrument: "82",
-          vol: "127",
-          note: "9",
+          instrument: 82,
+          vol: 127,
+          note: 9,
           onNotes: [],
           onPlay: true,
         });
@@ -188,7 +189,7 @@ const App = () => {
           trackName: data.trackNameNew,
           instrument: data.instrumentNew,
           note: data.noteNew,
-          vol: "100",
+          vol: 100,
           onNotes: [],
           onPlay: true,
         });
@@ -196,9 +197,9 @@ const App = () => {
       } else if (option === "chord") {
         newBlocks[i].rows.push({
           trackName: "Chord",
-          instrument: "48",
-          vol: "100",
-          note: "48",
+          instrument: 48,
+          vol: 100,
+          note: 48,
           onNotes: [],
           onPlay: true,
         });
@@ -206,9 +207,9 @@ const App = () => {
       } else if (option === "fx") {
         newBlocks[i].rows.push({
           trackName: "Fx",
-          instrument: "40",
-          vol: "100",
-          note: "48",
+          instrument: 40,
+          vol: 100,
+          note: 48,
           onNotes: [],
           onPlay: true,
         });
@@ -219,65 +220,65 @@ const App = () => {
         newBlocks[i].rows.push(
           {
             trackName: "Melody 8",
-            instrument: "0",
-            vol: "100",
-            note: "60",
+            instrument: 0,
+            vol: 100,
+            note: 60,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Melody 7",
-            instrument: "0",
-            vol: "100",
-            note: "59",
+            instrument: 0,
+            vol: 100,
+            note: 59,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Melody 6",
-            instrument: "0",
-            vol: "100",
-            note: "57",
+            instrument: 0,
+            vol: 100,
+            note: 57,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Melody 5",
-            instrument: "0",
-            vol: "100",
-            note: "55",
+            instrument: 0,
+            vol: 100,
+            note: 55,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Melody 4",
-            instrument: "0",
-            vol: "100",
-            note: "53",
+            instrument: 0,
+            vol: 100,
+            note: 53,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Melody 3",
             instrument: "0",
-            vol: "100",
-            note: "52",
+            vol: 100,
+            note: 52,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Melody 2",
-            instrument: "0",
-            vol: "100",
-            note: "50",
+            instrument: 0,
+            vol: 100,
+            note: 50,
             onNotes: [],
             onPlay: true,
           },
           {
             trackName: "Melody 1",
-            instrument: "0",
-            vol: "100",
-            note: "48",
+            instrument: 0,
+            vol: 100,
+            note: 48,
             onNotes: [],
             onPlay: true,
           }
@@ -287,9 +288,9 @@ const App = () => {
       } else if (option === "singleNote") {
         newBlocks[i].rows.push({
           trackName: "Melody",
-          instrument: "0",
-          vol: "100",
-          note: "48",
+          instrument: 0,
+          vol: 100,
+          note: 48,
           onNotes: [],
           onPlay: true,
         });
@@ -297,9 +298,9 @@ const App = () => {
       } else if (option === "vocal") {
         newBlocks[i].rows.push({
           trackName: "Vocal",
-          instrument: "40",
-          vol: "100",
-          note: "48",
+          instrument: 40,
+          vol: 100,
+          note: 48,
           onNotes: [],
           onPlay: true,
         });
@@ -377,21 +378,81 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
-  const playSound = () => {
-    midiSounds.playChordNow(3, [60], 2.5);
+  const handleInstrumentChange = (bi, ri, value) => {
+    const newBlocks = blocks.map((block) => block);
+    newBlocks[bi].rows[ri].instrument = Number(value);
+
+    setBlocks(newBlocks);
   };
 
-  useEffect(() => {
-    if (action === "stop") {
-      setCountScript(1);
-    } else if (action === "pause") {
-      setCountScript(countRef.current);
-    }
-  }, [action]);
+  const handleNoteChange = (bi, ri, value) => {
+    const newBlocks = blocks.map((block) => block);
+    newBlocks[bi].rows[ri].note = Number(value);
 
-  if (action === "start") {
-    playSound();
-  }
+    setBlocks(newBlocks);
+  };
+
+  const handleVolChange = (bi, ri, value) => {
+    const newBlocks = blocks.map((block) => block);
+    newBlocks[bi].rows[ri].vol = Number(value);
+
+    setBlocks(newBlocks);
+  };
+
+  blocks.forEach((block) => {
+    if (block.type !== "drums") {
+      block.rows.forEach((row) => {
+        row.onPlay === true && listInstrument.push(row.instrument);
+      });
+    } else {
+      block.rows.forEach((row) => {
+        row.onPlay === true && listDrums.push(row.instrument);
+      });
+    }
+  });
+
+  const fillBeat = () => {
+    for (var i = 0; i < 16; i++) {
+      var drums = [];
+      var is = [];
+      for (var j = 0; j < blocks.length; j++) {
+        for (var k = 0; k < blocks[j].rows.length; k++) {
+          if (blocks[j].rows[k].onNotes.includes(i + 1)) {
+            if (blocks[j].type !== "drums") {
+              is.push([
+                blocks[j].rows[k].instrument,
+                [blocks[j].rows[k].note],
+                2 / 16,
+                1,
+              ]);
+            } else {
+              drums.push(blocks[j].rows[k].instrument);
+            }
+          }
+        }
+      }
+
+      var drumBeat = [drums, []],
+        beat = [[], is];
+      beatsData[i] = beat;
+      drumsData[i] = drumBeat;
+    }
+  };
+
+  const playLoop = () => {
+    console.log("play");
+    fillBeat();
+    // midiSoundsInstrument.current.playChordNow(3, [60], 2.5);
+    console.log("drums", beatsData);
+    midiSoundsInstrument.current.startPlayLoop(beatsData, bpm, 1 / 16);
+    midiSoundsDrum.current.startPlayLoop(drumsData, bpm, 1 / 16);
+  };
+
+  const stopLoop = () => {
+    console.log("stop");
+    midiSoundsInstrument.current.stopPlayLoop();
+    midiSoundsDrum.current.stopPlayLoop();
+  };
 
   return (
     <div className="app">
@@ -407,10 +468,12 @@ const App = () => {
         renameTrack={renameTrack}
         deleteRowNumber={deleteRowNumber}
         setDeleteRowNumber={setDeleteRowNumber}
-        countScript={countScript}
         handleOnNotes={handleOnNotes}
         handleRemoveOnNotes={handleRemoveOnNotes}
         handleOnPlay={handleOnPlay}
+        handleInstrumentChange={handleInstrumentChange}
+        handleNoteChange={handleNoteChange}
+        handleVolChange={handleVolChange}
       />
       <BFrame
         addBlock={addBlock}
@@ -421,13 +484,20 @@ const App = () => {
         setVolume={setVolume}
         loop={loop}
         setLoop={setLoop}
-        setAction={setAction}
+        playLoop={playLoop}
+        stopLoop={stopLoop}
       />
       <Modal deleteNumber={deleteNumber} deleteEl={deleteBlock} />
-      <MIDISounds
-        ref={(ref) => (midiSounds = ref)}
+      <MIDISoundsInstrument
+        ref={(ref) => (midiSoundsInstrument.current = ref)}
         appElementName="root"
-        instruments={[111]}
+        // instruments={[3]}
+        instruments={listInstrument}
+      />
+      <MIDISoundsInstrument
+        ref={(ref) => (midiSoundsDrum.current = ref)}
+        appElementName="root"
+        drums={listDrums}
       />
     </div>
   );

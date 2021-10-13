@@ -18,10 +18,12 @@ const MainFrame = ({
   renameTrack,
   deleteRowNumber,
   setDeleteRowNumber,
-  countScript,
   handleOnNotes,
   handleRemoveOnNotes,
   handleOnPlay,
+  handleInstrumentChange,
+  handleNoteChange,
+  handleVolChange,
 }) => {
   const [redCheck, setRedCheck] = useState(null);
 
@@ -46,10 +48,12 @@ const MainFrame = ({
             renameTrack={renameTrack}
             deleteRowNumber={deleteRowNumber}
             setDeleteRowNumber={setDeleteRowNumber}
-            countScript={countScript}
             handleOnNotes={handleOnNotes}
             handleRemoveOnNotes={handleRemoveOnNotes}
             handleOnPlay={handleOnPlay}
+            handleInstrumentChange={handleInstrumentChange}
+            handleNoteChange={handleNoteChange}
+            handleVolChange={handleVolChange}
           />
         ) : null;
       })}

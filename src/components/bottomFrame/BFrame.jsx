@@ -12,7 +12,8 @@ const BFrame = ({
   setVolume,
   loop,
   setLoop,
-  setAction,
+  playLoop,
+  stopLoop,
 }) => {
   return (
     <div className="BFrame">
@@ -24,7 +25,8 @@ const BFrame = ({
         setVolume={setVolume}
         loop={loop}
         setLoop={setLoop}
-        setAction={setAction}
+        playLoop={playLoop}
+        stopLoop={stopLoop}
       />
       <ScriptBlock vxCheck={vxCheck} />
     </div>

@@ -24,6 +24,9 @@ const DrumsBlock = ({
   handleOnNotes,
   handleRemoveOnNotes,
   handleOnPlay,
+  handleInstrumentChange,
+  handleNoteChange,
+  handleVolChange,
 }) => {
   const [active1, setActive1] = useState(redCheck === null);
   const [isAdd, setIsAdd] = useState(false);
@@ -527,6 +530,9 @@ const DrumsBlock = ({
                 ri={i}
                 handleOnNotes={handleOnNotes}
                 handleOnPlay={handleOnPlay}
+                handleInstrumentChange={handleInstrumentChange}
+                handleNoteChange={handleNoteChange}
+                handleVolChange={handleVolChange}
               />
             ))}
           </tbody>

@@ -5,9 +5,9 @@ export const data = [
     rows: [
       {
         trackName: "",
-        instrument: "0",
-        note: "33",
-        vol: "74",
+        instrument: 0,
+        note: 33,
+        vol: 74,
         onNotes: [],
         onPlay: true,
       },
@@ -19,9 +19,9 @@ export const data = [
     rows: [
       {
         trackName: "Name",
-        instrument: "12",
-        vol: "74",
-        note: "33",
+        instrument: 12,
+        vol: 74,
+        note: 74,
         onNotes: [],
         onPlay: true,
       },
@@ -32,9 +32,10 @@ export const data = [
     type: "drums",
     rows: [
       {
-        instrument: "35",
-        vol: "127",
-        note: "1",
+        trackName: "",
+        instrument: 35,
+        vol: 127,
+        note: 1,
         onNotes: [],
         onPlay: true,
       },
