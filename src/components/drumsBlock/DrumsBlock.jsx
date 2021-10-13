@@ -21,6 +21,9 @@ const DrumsBlock = ({
   deleteRowNumber,
   setDeleteRowNumber,
   countScript,
+  handleOnNotes,
+  handleRemoveOnNotes,
+  handleOnPlay,
 }) => {
   const [active1, setActive1] = useState(redCheck === null);
   const [isAdd, setIsAdd] = useState(false);
@@ -29,8 +32,6 @@ const DrumsBlock = ({
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
   const [typeHead, setTypeHead] = useState("New");
-
-  const [newPattern, setNewPattern] = useState(false);
 
   const refActive1 = useRef(active1);
 
@@ -81,9 +82,9 @@ const DrumsBlock = ({
         <div className="leftC">
           <FileControl
             bc={true}
-            setNewPattern={setNewPattern}
             moveBlock={moveBlock}
             index={index}
+            handleRemoveOnNotes={handleRemoveOnNotes}
           />
           <div className="controlT">
             <span style={{ marginLeft: "10px", fontWeight: "bold" }}>D</span>
@@ -94,7 +95,7 @@ const DrumsBlock = ({
                 index={i}
                 bi={index}
                 setDeleteRowNumber={setDeleteRowNumber}
-                key={index}
+                key={index + "track" + i}
                 renameTrack={renameTrack}
               />
             ))}
@@ -126,9 +127,10 @@ const DrumsBlock = ({
               <span
                 className="vocalText"
                 id={`drumsName${index}`}
-                contenteditable="true"
+                contentEditable="true"
                 onKeyPress={(e) => handleKeyPress(e)}
                 onBlur={handleRename}
+                suppressContentEditableWarning={true}
               >
                 {data.blockName}
               </span>
@@ -517,12 +519,14 @@ const DrumsBlock = ({
                 </span>
               </td>
             </tr>
-            {data.rows.map((row, index) => (
+            {data.rows.map((row, i) => (
               <DrumsRow
-                key={index}
+                key={index + "row" + i}
                 row={row}
-                newPattern={newPattern}
-                setNewPattern={setNewPattern}
+                bi={index}
+                ri={i}
+                handleOnNotes={handleOnNotes}
+                handleOnPlay={handleOnPlay}
               />
             ))}
           </tbody>

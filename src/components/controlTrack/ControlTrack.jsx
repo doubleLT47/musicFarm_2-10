@@ -30,10 +30,11 @@ const ControlTrack = ({ data, bi, index, setDeleteRowNumber, renameTrack }) => {
       ></div>
       <div
         className="trackName"
-        contenteditable="true"
+        contentEditable="true"
         onKeyPress={(e) => handleKeyUp(e)}
         id={`trackName${index}&${bi}`}
         onBlur={handleBlur}
+        suppressContentEditableWarning={true}
       >
         {data.trackName}
       </div>

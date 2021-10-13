@@ -1,9 +1,10 @@
 import BFrame from "./components/bottomFrame/BFrame";
 import "./app.css";
 import MainFrame from "./components/mainFrame/MainFrame";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Modal from "./components/modal/Modal";
 import { data } from "./staticData.js";
+import MIDISounds from "midi-sounds-react";
 
 const App = () => {
   const [blocks, setBlocks] = useState(data);
@@ -13,13 +14,13 @@ const App = () => {
   const [vxCheck, setVxCheck] = useState(null);
   const [countScript, setCountScript] = useState(1);
 
-  setTimeout(() => {
-    if (countScript === 16) {
-      setCountScript(1);
-    } else {
-      setCountScript(countScript + 1);
-    }
-  }, 74);
+  const [bpm, setBpm] = useState(50);
+  const [loop, setLoop] = useState(0);
+  const [volume, setVolume] = useState(90);
+  const [action, setAction] = useState("stop");
+
+  const countRef = useRef(countScript);
+  var midiSounds = useRef();
 
   const addBlock = (block) => {
     if (block === "drums") {
@@ -33,6 +34,8 @@ const App = () => {
               instrument: "35",
               vol: "127",
               note: "1",
+              onNotes: [],
+              onPlay: true,
             },
           ],
         },
@@ -50,6 +53,8 @@ const App = () => {
               instrument: "12",
               vol: "74",
               note: "33",
+              onNotes: [],
+              onPlay: true,
             },
           ],
         },
@@ -67,6 +72,8 @@ const App = () => {
               instrument: "0",
               note: "33",
               vol: "74",
+              onNotes: [],
+              onPlay: true,
             },
           ],
         },
@@ -127,30 +134,40 @@ const App = () => {
             instrument: "49",
             vol: "100",
             note: "9",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Drums 4",
             instrument: "46",
             vol: "100",
             note: "9",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Drums 3",
             instrument: "42",
             vol: "100",
             note: "1",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Drums 2",
             instrument: "38",
             vol: "100",
             note: "1",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Drums 1",
             instrument: "35",
             vol: "100",
             note: "1",
+            onNotes: [],
+            onPlay: true,
           }
         );
         setBlocks(newBlocks);
@@ -160,6 +177,8 @@ const App = () => {
           instrument: "82",
           vol: "127",
           note: "9",
+          onNotes: [],
+          onPlay: true,
         });
         setBlocks(newBlocks);
       }
@@ -170,6 +189,8 @@ const App = () => {
           instrument: data.instrumentNew,
           note: data.noteNew,
           vol: "100",
+          onNotes: [],
+          onPlay: true,
         });
         setBlocks(newBlocks);
       } else if (option === "chord") {
@@ -178,6 +199,8 @@ const App = () => {
           instrument: "48",
           vol: "100",
           note: "48",
+          onNotes: [],
+          onPlay: true,
         });
         setBlocks(newBlocks);
       } else if (option === "fx") {
@@ -186,6 +209,8 @@ const App = () => {
           instrument: "40",
           vol: "100",
           note: "48",
+          onNotes: [],
+          onPlay: true,
         });
         setBlocks(newBlocks);
       }
@@ -197,48 +222,64 @@ const App = () => {
             instrument: "0",
             vol: "100",
             note: "60",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Melody 7",
             instrument: "0",
             vol: "100",
             note: "59",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Melody 6",
             instrument: "0",
             vol: "100",
             note: "57",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Melody 5",
             instrument: "0",
             vol: "100",
             note: "55",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Melody 4",
             instrument: "0",
             vol: "100",
             note: "53",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Melody 3",
             instrument: "0",
             vol: "100",
             note: "52",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Melody 2",
             instrument: "0",
             vol: "100",
             note: "50",
+            onNotes: [],
+            onPlay: true,
           },
           {
             trackName: "Melody 1",
             instrument: "0",
             vol: "100",
             note: "48",
+            onNotes: [],
+            onPlay: true,
           }
         );
 
@@ -249,6 +290,8 @@ const App = () => {
           instrument: "0",
           vol: "100",
           note: "48",
+          onNotes: [],
+          onPlay: true,
         });
         setBlocks(newBlocks);
       } else if (option === "vocal") {
@@ -257,6 +300,8 @@ const App = () => {
           instrument: "40",
           vol: "100",
           note: "48",
+          onNotes: [],
+          onPlay: true,
         });
         setBlocks(newBlocks);
       }
@@ -284,6 +329,8 @@ const App = () => {
           instrument: el.instrument,
           note: el.note,
           vol: el.vol,
+          onNotes: el.onNotes,
+          onPlay: el.onPlay,
         };
       }
 
@@ -295,9 +342,59 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
+  const handleOnNotes = (bi, ri, i) => {
+    const isOnNote = blocks[bi].rows[ri].onNotes.includes(i);
+    const newBlocks = blocks.map((block) => block);
+
+    if (isOnNote) {
+      const newOnNotes = blocks[bi].rows[ri].onNotes.filter(
+        (note) => note !== i
+      );
+
+      newBlocks[bi].rows[ri].onNotes = newOnNotes;
+      setBlocks(newBlocks);
+    } else {
+      newBlocks[bi].rows[ri].onNotes.push(i);
+      setBlocks(newBlocks);
+    }
+  };
+
+  const handleRemoveOnNotes = (bi) => {
+    const newBlocks = blocks.map((block) => block);
+
+    for (let i = 0; i < blocks[bi].rows.length; i++) {
+      newBlocks[bi].rows[i].onNotes.length = 0;
+    }
+
+    setBlocks(newBlocks);
+  };
+
+  const handleOnPlay = (bi, ri) => {
+    const newBlocks = blocks.map((block) => block);
+
+    newBlocks[bi].rows[ri].onPlay = !newBlocks[bi].rows[ri].onPlay;
+
+    setBlocks(newBlocks);
+  };
+
+  const playSound = () => {
+    midiSounds.playChordNow(3, [60], 2.5);
+  };
+
+  useEffect(() => {
+    if (action === "stop") {
+      setCountScript(1);
+    } else if (action === "pause") {
+      setCountScript(countRef.current);
+    }
+  }, [action]);
+
+  if (action === "start") {
+    playSound();
+  }
+
   return (
     <div className="app">
-      <BFrame addBlock={addBlock} vxCheck={vxCheck} />
       <MainFrame
         setDeleteNumber={setDeleteNumber}
         blocks={blocks}
@@ -311,8 +408,27 @@ const App = () => {
         deleteRowNumber={deleteRowNumber}
         setDeleteRowNumber={setDeleteRowNumber}
         countScript={countScript}
+        handleOnNotes={handleOnNotes}
+        handleRemoveOnNotes={handleRemoveOnNotes}
+        handleOnPlay={handleOnPlay}
+      />
+      <BFrame
+        addBlock={addBlock}
+        vxCheck={vxCheck}
+        bpm={bpm}
+        setBpm={setBpm}
+        volume={volume}
+        setVolume={setVolume}
+        loop={loop}
+        setLoop={setLoop}
+        setAction={setAction}
       />
       <Modal deleteNumber={deleteNumber} deleteEl={deleteBlock} />
+      <MIDISounds
+        ref={(ref) => (midiSounds = ref)}
+        appElementName="root"
+        instruments={[111]}
+      />
     </div>
   );
 };

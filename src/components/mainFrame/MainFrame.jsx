@@ -19,6 +19,9 @@ const MainFrame = ({
   deleteRowNumber,
   setDeleteRowNumber,
   countScript,
+  handleOnNotes,
+  handleRemoveOnNotes,
+  handleOnPlay,
 }) => {
   const [redCheck, setRedCheck] = useState(null);
 
@@ -44,6 +47,9 @@ const MainFrame = ({
             deleteRowNumber={deleteRowNumber}
             setDeleteRowNumber={setDeleteRowNumber}
             countScript={countScript}
+            handleOnNotes={handleOnNotes}
+            handleRemoveOnNotes={handleRemoveOnNotes}
+            handleOnPlay={handleOnPlay}
           />
         ) : null;
       })}

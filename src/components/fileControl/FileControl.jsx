@@ -1,7 +1,14 @@
 import React from "react";
 import "./file.css";
 
-const FileControl = ({ bc, setNewPattern, addBlock, moveBlock, index }) => {
+const FileControl = ({
+  bc,
+  setNewPattern,
+  addBlock,
+  moveBlock,
+  index,
+  handleRemoveOnNotes,
+}) => {
   return (
     <div className={bc ? "fileControl bgFileControl" : "fileControl"}>
       <div className="fileItem">
@@ -9,7 +16,7 @@ const FileControl = ({ bc, setNewPattern, addBlock, moveBlock, index }) => {
           className="imgIcon"
           src="./assets/icon/outline_description_black_24dp.png"
           alt=""
-          onClick={() => setNewPattern(true)}
+          onClick={() => handleRemoveOnNotes(index)}
         />
       </div>
       <div className="fileItem">

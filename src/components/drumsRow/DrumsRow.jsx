@@ -1,54 +1,17 @@
 import { useState } from "react";
 
-const VocalRow = ({ row, newPattern, setNewPattern }) => {
-  const [activeT1, setActiveT1] = useState(true);
+const DrumsRow = ({ row, handleOnNotes, bi, ri, handleOnPlay }) => {
   const [instrument1, setInstrument1] = useState(row.instrument);
   const [vol1, setVol1] = useState(row.vol);
   const [note1, setNote1] = useState(row.note);
 
-  const [pcb1, setPcb1] = useState(false);
-  const [pcb2, setPcb2] = useState(false);
-  const [pcb3, setPcb3] = useState(false);
-  const [pcb4, setPcb4] = useState(false);
-  const [pcb5, setPcb5] = useState(false);
-  const [pcb6, setPcb6] = useState(false);
-  const [pcb7, setPcb7] = useState(false);
-  const [pcb8, setPcb8] = useState(false);
-  const [pcb9, setPcb9] = useState(false);
-  const [pcb10, setPcb10] = useState(false);
-  const [pcb11, setPcb11] = useState(false);
-  const [pcb12, setPcb12] = useState(false);
-  const [pcb13, setPcb13] = useState(false);
-  const [pcb14, setPcb14] = useState(false);
-  const [pcb15, setPcb15] = useState(false);
-  const [pcb16, setPcb16] = useState(false);
-
-  if (newPattern) {
-    pcb1 && setPcb1(false);
-    pcb2 && setPcb2(false);
-    pcb3 && setPcb3(false);
-    pcb4 && setPcb4(false);
-    pcb5 && setPcb5(false);
-    pcb6 && setPcb6(false);
-    pcb7 && setPcb7(false);
-    pcb8 && setPcb8(false);
-    pcb9 && setPcb9(false);
-    pcb10 && setPcb10(false);
-    pcb11 && setPcb11(false);
-    pcb12 && setPcb12(false);
-    pcb13 && setPcb13(false);
-    pcb14 && setPcb14(false);
-    pcb15 && setPcb15(false);
-    pcb16 && setPcb16(false);
-    setNewPattern(false);
-  }
   return (
     <tr style={{ backgroundColor: "#bbbbbb" }}>
       <td style={{ textAlign: "center" }}>
         <input
           type="checkbox"
-          checked={activeT1}
-          onChange={() => setActiveT1(!activeT1)}
+          checked={row.onPlay}
+          onChange={() => handleOnPlay(bi, ri)}
         />
       </td>
       <td>
@@ -261,112 +224,112 @@ const VocalRow = ({ row, newPattern, setNewPattern }) => {
           <option value="0">0</option>
         </select>
       </td>
-      <td class="mediumGrey">
+      <td className="mediumGrey">
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb1}
-          onChange={() => setPcb1(!pcb1)}
+          checked={row.onNotes.includes(1)}
+          onChange={() => handleOnNotes(bi, ri, 1)}
         />
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb2}
-          onChange={() => setPcb2(!pcb2)}
+          checked={row.onNotes.includes(2)}
+          onChange={() => handleOnNotes(bi, ri, 2)}
         />
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb3}
-          onChange={() => setPcb3(!pcb3)}
+          checked={row.onNotes.includes(3)}
+          onChange={() => handleOnNotes(bi, ri, 3)}
         />
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb4}
-          onChange={() => setPcb4(!pcb4)}
-        />
-      </td>
-      <td class="lightGrey">
-        <input
-          className="inputCheckbox"
-          type="checkbox"
-          checked={pcb5}
-          onChange={() => setPcb5(!pcb5)}
-        />
-        <input
-          className="inputCheckbox"
-          type="checkbox"
-          checked={pcb6}
-          onChange={() => setPcb6(!pcb6)}
-        />
-        <input
-          className="inputCheckbox"
-          type="checkbox"
-          checked={pcb7}
-          onChange={() => setPcb7(!pcb7)}
-        />
-        <input
-          className="inputCheckbox"
-          type="checkbox"
-          checked={pcb8}
-          onChange={() => setPcb8(!pcb8)}
+          checked={row.onNotes.includes(4)}
+          onChange={() => handleOnNotes(bi, ri, 4)}
         />
       </td>
-      <td class="mediumGrey">
+      <td className="lightGrey">
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb9}
-          onChange={() => setPcb9(!pcb9)}
+          checked={row.onNotes.includes(5)}
+          onChange={() => handleOnNotes(bi, ri, 5)}
         />
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb10}
-          onChange={() => setPcb10(!pcb10)}
+          checked={row.onNotes.includes(6)}
+          onChange={() => handleOnNotes(bi, ri, 6)}
         />
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb11}
-          onChange={() => setPcb11(!pcb11)}
+          checked={row.onNotes.includes(7)}
+          onChange={() => handleOnNotes(bi, ri, 7)}
         />
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb12}
-          onChange={() => setPcb12(!pcb12)}
+          checked={row.onNotes.includes(8)}
+          onChange={() => handleOnNotes(bi, ri, 8)}
         />
       </td>
-      <td class="lightGrey">
+      <td className="mediumGrey">
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb13}
-          onChange={() => setPcb13(!pcb13)}
+          checked={row.onNotes.includes(9)}
+          onChange={() => handleOnNotes(bi, ri, 9)}
         />
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb14}
-          onChange={() => setPcb14(!pcb14)}
+          checked={row.onNotes.includes(10)}
+          onChange={() => handleOnNotes(bi, ri, 10)}
         />
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb15}
-          onChange={() => setPcb15(!pcb15)}
+          checked={row.onNotes.includes(11)}
+          onChange={() => handleOnNotes(bi, ri, 11)}
         />
         <input
           className="inputCheckbox"
           type="checkbox"
-          checked={pcb16}
-          onChange={() => setPcb16(!pcb16)}
+          checked={row.onNotes.includes(12)}
+          onChange={() => handleOnNotes(bi, ri, 12)}
+        />
+      </td>
+      <td className="lightGrey">
+        <input
+          className="inputCheckbox"
+          type="checkbox"
+          checked={row.onNotes.includes(13)}
+          onChange={() => handleOnNotes(bi, ri, 13)}
+        />
+        <input
+          className="inputCheckbox"
+          type="checkbox"
+          checked={row.onNotes.includes(14)}
+          onChange={() => handleOnNotes(bi, ri, 14)}
+        />
+        <input
+          className="inputCheckbox"
+          type="checkbox"
+          checked={row.onNotes.includes(15)}
+          onChange={() => handleOnNotes(bi, ri, 15)}
+        />
+        <input
+          className="inputCheckbox"
+          type="checkbox"
+          checked={row.onNotes.includes(16)}
+          onChange={() => handleOnNotes(bi, ri, 16)}
         />
       </td>
     </tr>
   );
 };
 
-export default VocalRow;
+export default DrumsRow;

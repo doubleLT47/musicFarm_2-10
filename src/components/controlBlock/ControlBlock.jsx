@@ -2,10 +2,16 @@ import { useState } from "react";
 import FileControl from "../fileControl/FileControl";
 import "./control.css";
 
-const ControlBlock = ({ addBlock }) => {
-  const [bpmValue, setBpmValue] = useState(100);
-  const [loopValue, setLoopValue] = useState("loop");
-  const [volValue, setVolValue] = useState(90);
+const ControlBlock = ({
+  addBlock,
+  bpm,
+  setBpm,
+  volume,
+  setVolume,
+  loop,
+  setLoop,
+  setAction,
+}) => {
   const [checkboxCT, setCheckboxCT] = useState(true);
 
   return (
@@ -30,19 +36,19 @@ const ControlBlock = ({ addBlock }) => {
             min="30"
             max="250"
             type="number"
-            value={bpmValue}
-            onChange={(e) => setBpmValue(e.target.value)}
+            value={bpm}
+            onChange={(e) => setBpm(e.target.value)}
           />
-          <span className="bpmText">BMP</span>
+          <span className="bpmText">BPM</span>
         </div>
         <div className="audioControlGroup">
-          <div className="audioControlItem">
+          <div className="audioControlItem" onClick={() => setAction("stop")}>
             <div className="icon squareIcon"></div>
           </div>
-          <div className="audioControlItem">
+          <div className="audioControlItem" onClick={() => setAction("pause")}>
             <div className="icon triangleIcon"></div>
           </div>
-          <div className="audioControlItem">
+          <div className="audioControlItem" onClick={() => setAction("start")}>
             <div className="icon playIcon"></div>
           </div>
         </div>
@@ -55,10 +61,10 @@ const ControlBlock = ({ addBlock }) => {
           <select
             name="loop"
             id="loopSelect"
-            value={loopValue}
-            onChange={(e) => setLoopValue(e.target.value)}
+            value={loop}
+            onChange={(e) => setLoop(e.target.value)}
           >
-            <option value="loop">Loop</option>
+            <option value="0">Loop</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -114,9 +120,9 @@ const ControlBlock = ({ addBlock }) => {
         <input
           style={{ width: "90px", height: "5px" }}
           type="range"
-          value={volValue}
+          value={volume}
           min="0"
-          onChange={(e) => setVolValue(e.target.value)}
+          onChange={(e) => setVolume(e.target.value)}
           max="100"
         />
         <input
@@ -125,10 +131,10 @@ const ControlBlock = ({ addBlock }) => {
             borderBottom: "1px solid #7e7e7e",
           }}
           type="number"
-          value={volValue}
+          value={volume}
           min="0"
           max="100"
-          onChange={(e) => setVolValue(e.target.value)}
+          onChange={(e) => setVolume(e.target.value)}
         />
       </div>
     </div>

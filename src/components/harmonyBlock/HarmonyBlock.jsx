@@ -21,6 +21,9 @@ const HarmonyBlock = ({
   deleteRowNumber,
   setDeleteRowNumber,
   countScript,
+  handleOnNotes,
+  handleRemoveOnNotes,
+  handleOnPlay,
 }) => {
   const [active1, setActive1] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
@@ -33,7 +36,6 @@ const HarmonyBlock = ({
   const [chords, setChords] = useState("C");
   const [gamut, setGamut] = useState("Major");
   const [typeHead, setTypeHead] = useState("New");
-  const [newPattern, setNewPattern] = useState(false);
 
   const refActive1 = useRef(active1);
 
@@ -106,9 +108,9 @@ const HarmonyBlock = ({
         <div className="leftC">
           <FileControl
             bc={true}
-            setNewPattern={setNewPattern}
             moveBlock={moveBlock}
             index={index}
+            handleRemoveOnNotes={handleRemoveOnNotes}
           />
           <div className="controlT">
             <span style={{ marginLeft: "10px", fontWeight: "bold" }}>D</span>
@@ -119,7 +121,7 @@ const HarmonyBlock = ({
                 index={i}
                 bi={index}
                 setDeleteRowNumber={setDeleteRowNumber}
-                key={index}
+                key={index + "track" + i}
                 renameTrack={renameTrack}
               />
             ))}
@@ -150,10 +152,11 @@ const HarmonyBlock = ({
               </label>
               <span
                 className="vocalText"
-                contenteditable="true"
+                contentEditable="true"
                 onKeyPress={(e) => handleKeyPress(e)}
                 id={`harmonyName${index}`}
                 onBlur={handleRename}
+                suppressContentEditableWarning={true}
               >
                 {data.blockName}
               </span>
@@ -825,12 +828,14 @@ const HarmonyBlock = ({
                 </span>
               </td>
             </tr>
-            {data.rows.map((row, index) => (
+            {data.rows.map((row, i) => (
               <HarmonyRow
-                key={index}
+                key={index + "row" + i}
                 row={row}
-                newPattern={newPattern}
-                setNewPattern={setNewPattern}
+                bi={index}
+                ri={i}
+                handleOnNotes={handleOnNotes}
+                handleOnPlay={handleOnPlay}
               />
             ))}
           </tbody>
