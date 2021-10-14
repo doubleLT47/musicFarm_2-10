@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import "./drumsBlock.css";
 import FileControl from "../fileControl/FileControl";
 import DrumsRow from "../drumsRow/DrumsRow";
 import ControlTrack from "../controlTrack/ControlTrack";
@@ -137,22 +136,33 @@ const DrumsBlock = ({
               >
                 {data.blockName}
               </span>
+            </td>
+            <td className="head3" style={{ textAlign: "end" }}>
               <span
-                className={vxCheck === index ? "vxText vxTextGreen" : "vxText"}
+                className={
+                  vxCheck === index ? "vxTextS vxTextGreen" : "vxTextS"
+                }
               >
                 VX
               </span>
-            </td>
-            <td className="head3">
-              <label className="cbContainerGreen">
+              <label
+                className="cbContainerGreen"
+                style={{ position: "absolute", top: "6px", left: "35px" }}
+              >
                 <input
                   type="checkbox"
-                  className="inputCheckbox"
+                  // className="inputCheckbox"
                   checked={vxCheck === index}
                   onChange={handleChange}
                 />
                 <span className="checkMarkGreen"></span>
               </label>
+              <input type="checkBox" className="inputCheckbox" />
+              <span style={{ color: "#ffffff" }}>P</span>
+              <input type="checkBox" className="inputCheckbox" />
+              <span style={{ color: "#ffffff" }}>D</span>
+              <input type="checkBox" className="inputCheckbox" />
+              <span style={{ color: "#ffffff" }}>F</span>
             </td>
             <td className="head4"></td>
             <td className="head5">
@@ -334,7 +344,7 @@ const DrumsBlock = ({
             <tr style={{ backgroundColor: "#bbbbbb" }}>
               <td style={{ textAlign: "center" }}>on</td>
               <td>instrument</td>
-              <td>note</td>
+              <td>drums kit</td>
               <td style={{ textAlign: "center", color: "#bbbbbb" }}>x</td>
               <td>vol</td>
               <td>

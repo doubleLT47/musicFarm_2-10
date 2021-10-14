@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import "./harmonyBlock.css";
 import FileControl from "../fileControl/FileControl";
 import HarmonyRow from "../harmonyRow/HarmonyRow";
 import ControlTrack from "../controlTrack/ControlTrack";

@@ -442,8 +442,7 @@ const App = () => {
   const playLoop = () => {
     console.log("play");
     fillBeat();
-    // midiSoundsInstrument.current.playChordNow(3, [60], 2.5);
-    console.log("drums", beatsData);
+
     midiSoundsInstrument.current.startPlayLoop(beatsData, bpm, 1 / 16);
     midiSoundsDrum.current.startPlayLoop(drumsData, bpm, 1 / 16);
   };

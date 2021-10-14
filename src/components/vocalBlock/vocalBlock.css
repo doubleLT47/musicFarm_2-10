@@ -32,6 +32,7 @@ td {
 
 .head2 {
   position: relative;
+  vertical-align: middle;
 }
 
 .cbContainerRed {
@@ -86,9 +87,9 @@ td {
 .cbContainerGreen {
   position: relative;
   user-select: none;
-  width: 13px;
-  height: 13px;
-  margin: 3px 3px 3px 4px;
+  width: 12px;
+  height: 12px;
+  display: inline-block;
 }
 
 .cbContainerGreen input {
@@ -100,8 +101,8 @@ td {
   position: absolute;
   top: 0;
   left: 0;
-  height: 13px;
-  width: 13px;
+  height: 12px;
+  width: 12px;
   border-radius: 2px;
   background-color: #eee;
 }
@@ -122,7 +123,7 @@ td {
 
 .cbContainerGreen .checkMarkGreen:after {
   left: 4px;
-  top: 3px;
+  top: 2px;
   width: 2px;
   height: 5px;
   border: solid white;
@@ -355,4 +356,12 @@ td {
 
 .onPlay {
   background-color: red;
+}
+
+.vxTextS {
+  color: blue;
+  font-size: 12px;
+  position: absolute;
+  left: 4px;
+  top: 6px;
 }
