@@ -2,6 +2,7 @@ export const data = [
   {
     blockName: "Vocal",
     type: "vocal",
+    blockOnPlay: true,
     rows: [
       {
         trackName: "",
@@ -16,6 +17,7 @@ export const data = [
   {
     blockName: "Harmony",
     type: "harmony",
+    blockOnPlay: true,
     rows: [
       {
         trackName: "Name",
@@ -30,6 +32,7 @@ export const data = [
   {
     blockName: "Drums",
     type: "drums",
+    blockOnPlay: true,
     rows: [
       {
         trackName: "",

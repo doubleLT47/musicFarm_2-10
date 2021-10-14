@@ -26,6 +26,7 @@ const DrumsBlock = ({
   handleInstrumentChange,
   handleNoteChange,
   handleVolChange,
+  handleBlockOnPlay,
 }) => {
   const [active1, setActive1] = useState(redCheck === null);
   const [isAdd, setIsAdd] = useState(false);

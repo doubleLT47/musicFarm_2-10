@@ -16,12 +16,10 @@ const App = () => {
   const [bpm, setBpm] = useState(50);
   const [loop, setLoop] = useState(0);
   const [volume, setVolume] = useState(90);
-  var midiSoundsInstrument = useRef(),
-    midiSoundsDrum = useRef();
+  var midiSounds = useRef();
   var listInstrument = [],
     listDrums = [],
-    drumsData = [],
-    beatsData = [];
+    beatData = [];
 
   const addBlock = (block) => {
     if (block === "drums") {
@@ -30,6 +28,7 @@ const App = () => {
         {
           blockName: "Drums",
           type: "drums",
+          blockOnPlay: true,
           rows: [
             {
               instrument: 35,
@@ -48,6 +47,7 @@ const App = () => {
         {
           blockName: "Harmony",
           type: "harmony",
+          blockOnPlay: true,
           rows: [
             {
               trackName: "Name",
@@ -67,6 +67,7 @@ const App = () => {
         {
           blockName: "Vocal",
           type: "vocal",
+          blockOnPlay: true,
           rows: [
             {
               trackName: "",
@@ -121,6 +122,14 @@ const App = () => {
 
       return block;
     });
+
+    setBlocks(newBlocks);
+  };
+
+  const handleBlockOnPlay = (bi, bool) => {
+    const newBlocks = blocks.map((block) => block);
+
+    newBlocks[bi].blockOnPlay = bool;
 
     setBlocks(newBlocks);
   };
@@ -432,10 +441,8 @@ const App = () => {
         }
       }
 
-      var drumBeat = [drums, []],
-        beat = [[], is];
-      beatsData[i] = beat;
-      drumsData[i] = drumBeat;
+      var beat = [drums, is];
+      beatData[i] = beat;
     }
   };
 
@@ -443,14 +450,12 @@ const App = () => {
     console.log("play");
     fillBeat();
 
-    midiSoundsInstrument.current.startPlayLoop(beatsData, bpm, 1 / 16);
-    midiSoundsDrum.current.startPlayLoop(drumsData, bpm, 1 / 16);
+    midiSounds.current.startPlayLoop(beatData, bpm, 1 / 16);
   };
 
   const stopLoop = () => {
     console.log("stop");
-    midiSoundsInstrument.current.stopPlayLoop();
-    midiSoundsDrum.current.stopPlayLoop();
+    midiSounds.current.stopPlayLoop();
   };
 
   return (
@@ -473,6 +478,7 @@ const App = () => {
         handleInstrumentChange={handleInstrumentChange}
         handleNoteChange={handleNoteChange}
         handleVolChange={handleVolChange}
+        handleBlockPlay={handleBlockOnPlay}
       />
       <BFrame
         addBlock={addBlock}
@@ -488,14 +494,9 @@ const App = () => {
       />
       <Modal deleteNumber={deleteNumber} deleteEl={deleteBlock} />
       <MIDISoundsInstrument
-        ref={(ref) => (midiSoundsInstrument.current = ref)}
+        ref={(ref) => (midiSounds.current = ref)}
         appElementName="root"
-        // instruments={[3]}
         instruments={listInstrument}
-      />
-      <MIDISoundsInstrument
-        ref={(ref) => (midiSoundsDrum.current = ref)}
-        appElementName="root"
         drums={listDrums}
       />
     </div>

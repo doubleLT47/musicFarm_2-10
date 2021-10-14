@@ -24,6 +24,7 @@ const MainFrame = ({
   handleInstrumentChange,
   handleNoteChange,
   handleVolChange,
+  handleBlockOnPlay,
 }) => {
   const [redCheck, setRedCheck] = useState(null);
 
@@ -54,6 +55,7 @@ const MainFrame = ({
             handleInstrumentChange={handleInstrumentChange}
             handleNoteChange={handleNoteChange}
             handleVolChange={handleVolChange}
+            handleBlockOnPlay={handleBlockOnPlay}
           />
         ) : null;
       })}
