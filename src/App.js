@@ -12,14 +12,72 @@ const App = () => {
 
   const [deleteNumber, setDeleteNumber] = useState(null);
   const [vxCheck, setVxCheck] = useState(null);
+  const [redCheck, setRedCheck] = useState(null);
 
   const [bpm, setBpm] = useState(50);
   const [loop, setLoop] = useState(0);
   const [volume, setVolume] = useState(90);
+  const [beat, setBeat] = useState([]);
+
   var midiSounds = useRef();
   var listInstrument = [],
     listDrums = [],
     beatData = [];
+
+  blocks.forEach((block) => {
+    if (block.type !== "drums") {
+      block.rows.forEach((row) => {
+        row.onPlay === true && listInstrument.push(row.instrument);
+      });
+    } else {
+      block.rows.forEach((row) => {
+        row.onPlay === true && listDrums.push(row.instrument);
+      });
+    }
+  });
+
+  const fillBeat = () => {
+    for (var i = 0; i < 16; i++) {
+      var drums = [];
+      var is = [];
+      if (redCheck === null) {
+        for (var j = 0; j < blocks.length; j++) {
+          for (var k = 0; k < blocks[j].rows.length; k++) {
+            if (blocks[j].rows[k].onNotes.includes(i + 1)) {
+              if (blocks[j].type !== "drums") {
+                is.push([
+                  blocks[j].rows[k].instrument,
+                  [blocks[j].rows[k].note],
+                  2 / 16,
+                  1,
+                ]);
+              } else {
+                drums.push(blocks[j].rows[k].instrument);
+              }
+            }
+          }
+        }
+      } else {
+        for (k = 0; k < blocks[redCheck].rows.length; k++) {
+          if (blocks[redCheck].rows[k].onNotes.includes(i + 1)) {
+            if (blocks[redCheck].type !== "drums") {
+              is.push([
+                blocks[redCheck].rows[k].instrument,
+                [blocks[redCheck].rows[k].note],
+                2 / 16,
+                1,
+              ]);
+            } else {
+              drums.push(blocks[redCheck].rows[k].instrument);
+            }
+          }
+        }
+      }
+      var beat = [drums, is];
+      beatData[i] = beat;
+    }
+    setBeat(beatData);
+  };
 
   const addBlock = (block) => {
     if (block === "drums") {
@@ -126,10 +184,10 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
-  const handleBlockOnPlay = (bi, bool) => {
+  const handleBlockOnPlay = (bi) => {
     const newBlocks = blocks.map((block) => block);
 
-    newBlocks[bi].blockOnPlay = bool;
+    newBlocks[bi].blockOnPlay = !newBlocks[bi].blockOnPlay;
 
     setBlocks(newBlocks);
   };
@@ -326,6 +384,7 @@ const App = () => {
       newBlocks[i].rows = newRows;
       setBlocks(newBlocks);
       setDeleteRowNumber(null);
+      fillBeat();
     } else if (option === "cancel") {
       setDeleteRowNumber(null);
     }
@@ -355,7 +414,6 @@ const App = () => {
   const handleOnNotes = (bi, ri, i) => {
     const isOnNote = blocks[bi].rows[ri].onNotes.includes(i);
     const newBlocks = blocks.map((block) => block);
-
     if (isOnNote) {
       const newOnNotes = blocks[bi].rows[ri].onNotes.filter(
         (note) => note !== i
@@ -363,9 +421,11 @@ const App = () => {
 
       newBlocks[bi].rows[ri].onNotes = newOnNotes;
       setBlocks(newBlocks);
+      fillBeat();
     } else {
       newBlocks[bi].rows[ri].onNotes.push(i);
       setBlocks(newBlocks);
+      fillBeat();
     }
   };
 
@@ -377,6 +437,7 @@ const App = () => {
     }
 
     setBlocks(newBlocks);
+    fillBeat();
   };
 
   const handleOnPlay = (bi, ri) => {
@@ -408,49 +469,16 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
-  blocks.forEach((block) => {
-    if (block.type !== "drums") {
-      block.rows.forEach((row) => {
-        row.onPlay === true && listInstrument.push(row.instrument);
-      });
-    } else {
-      block.rows.forEach((row) => {
-        row.onPlay === true && listDrums.push(row.instrument);
-      });
-    }
-  });
-
-  const fillBeat = () => {
-    for (var i = 0; i < 16; i++) {
-      var drums = [];
-      var is = [];
-      for (var j = 0; j < blocks.length; j++) {
-        for (var k = 0; k < blocks[j].rows.length; k++) {
-          if (blocks[j].rows[k].onNotes.includes(i + 1)) {
-            if (blocks[j].type !== "drums") {
-              is.push([
-                blocks[j].rows[k].instrument,
-                [blocks[j].rows[k].note],
-                2 / 16,
-                1,
-              ]);
-            } else {
-              drums.push(blocks[j].rows[k].instrument);
-            }
-          }
-        }
-      }
-
-      var beat = [drums, is];
-      beatData[i] = beat;
-    }
+  const handleRedCheckChange = (index) => {
+    setRedCheck(index);
+    fillBeat();
   };
 
   const playLoop = () => {
     console.log("play");
     fillBeat();
 
-    midiSounds.current.startPlayLoop(beatData, bpm, 1 / 16);
+    midiSounds.current.startPlayLoop(beat, bpm, 1 / 16);
   };
 
   const stopLoop = () => {
@@ -461,6 +489,8 @@ const App = () => {
   return (
     <div className="app">
       <MainFrame
+        redCheck={redCheck}
+        handleRedCheckChange={handleRedCheckChange}
         setDeleteNumber={setDeleteNumber}
         blocks={blocks}
         vxCheck={vxCheck}
@@ -478,7 +508,7 @@ const App = () => {
         handleInstrumentChange={handleInstrumentChange}
         handleNoteChange={handleNoteChange}
         handleVolChange={handleVolChange}
-        handleBlockPlay={handleBlockOnPlay}
+        handleBlockOnPlay={handleBlockOnPlay}
       />
       <BFrame
         addBlock={addBlock}

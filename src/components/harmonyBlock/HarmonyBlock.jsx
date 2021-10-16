@@ -10,7 +10,7 @@ const HarmonyBlock = ({
   setDeleteNumber,
   setVxCheck,
   redCheck,
-  setRedCheck,
+  handleRedCheckChange,
   moveBlock,
   data,
   renameBlock,
@@ -26,8 +26,9 @@ const HarmonyBlock = ({
   handleInstrumentChange,
   handleNoteChange,
   handleVolChange,
+  handleBlockOnPlay,
 }) => {
-  const [active1, setActive1] = useState(true);
+  const [active1, setActive1] = useState(data.blockOnPlay);
   const [isAdd, setIsAdd] = useState(false);
   const [isIC, setIsIC] = useState(false);
 
@@ -59,9 +60,9 @@ const HarmonyBlock = ({
 
   const handleRedChange = () => {
     if (redCheck === index) {
-      setRedCheck(null);
+      handleRedCheckChange(null);
     } else {
-      setRedCheck(index);
+      handleRedCheckChange(index);
     }
   };
 
@@ -139,6 +140,7 @@ const HarmonyBlock = ({
                 onChange={(e) => {
                   setActive1(!active1);
                   refActive1.current = !active1;
+                  handleBlockOnPlay(index);
                 }}
               />
             </td>

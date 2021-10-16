@@ -10,7 +10,7 @@ const DrumsBlock = ({
   setDeleteNumber,
   setVxCheck,
   redCheck,
-  setRedCheck,
+  handleRedCheckChange,
   moveBlock,
   data,
   renameBlock,
@@ -28,7 +28,7 @@ const DrumsBlock = ({
   handleVolChange,
   handleBlockOnPlay,
 }) => {
-  const [active1, setActive1] = useState(redCheck === null);
+  const [active1, setActive1] = useState(data.blockOnPlay);
   const [isAdd, setIsAdd] = useState(false);
 
   const [vocalVolDr, setVocalVolDr] = useState("74");
@@ -56,9 +56,9 @@ const DrumsBlock = ({
 
   const handleRedChange = () => {
     if (redCheck === index) {
-      setRedCheck(null);
+      handleRedCheckChange(null);
     } else {
-      setRedCheck(index);
+      handleRedCheckChange(index);
     }
   };
 
@@ -114,6 +114,7 @@ const DrumsBlock = ({
                 onChange={(e) => {
                   setActive1(!active1);
                   refActive1.current = !active1;
+                  handleBlockOnPlay(index);
                 }}
               />
             </td>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import VocalBlock from "../vocalBlock/VocalBlock";
 import HarmonyBlock from "../harmonyBlock/HarmonyBlock";
 import DrumsBlock from "../drumsBlock/DrumsBlock";
@@ -25,9 +25,9 @@ const MainFrame = ({
   handleNoteChange,
   handleVolChange,
   handleBlockOnPlay,
+  redCheck,
+  handleRedCheckChange,
 }) => {
-  const [redCheck, setRedCheck] = useState(null);
-
   return (
     <div className="mainFrame">
       {blocks.map((el, index) => {
@@ -41,7 +41,7 @@ const MainFrame = ({
             vxCheck={vxCheck}
             setVxCheck={setVxCheck}
             redCheck={redCheck}
-            setRedCheck={setRedCheck}
+            handleRedCheckChange={handleRedCheckChange}
             moveBlock={moveBlock}
             renameBlock={renameBlock}
             addRow={addRow}
