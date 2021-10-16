@@ -30,6 +30,7 @@ const DrumsBlock = ({
 }) => {
   const [active1, setActive1] = useState(data.blockOnPlay);
   const [isAdd, setIsAdd] = useState(false);
+  const [drumRadio, setDrumRadio] = useState(0);
 
   const [vocalVolDr, setVocalVolDr] = useState("74");
   const [chords, setChords] = useState("C");
@@ -159,12 +160,33 @@ const DrumsBlock = ({
                 />
                 <span className="checkMarkGreen"></span>
               </label>
-              <input type="checkBox" className="inputCheckbox" />
-              <span style={{ color: "#ffffff" }}>P</span>
-              <input type="checkBox" className="inputCheckbox" />
-              <span style={{ color: "#ffffff" }}>D</span>
-              <input type="checkBox" className="inputCheckbox" />
-              <span style={{ color: "#ffffff" }}>F</span>
+              <input
+                type="radio"
+                className="inputCheckbox"
+                checked={drumRadio === 1}
+                onChange={() => {
+                  drumRadio === 1 ? setDrumRadio(0) : setDrumRadio(1);
+                }}
+              />
+              <span style={{ color: "#ffffff", fontSize: "10px" }}>P</span>
+              <input
+                type="radio"
+                className="inputCheckbox"
+                checked={drumRadio === 2}
+                onChange={() => {
+                  drumRadio === 2 ? setDrumRadio(0) : setDrumRadio(2);
+                }}
+              />
+              <span style={{ color: "#ffffff", fontSize: "10px" }}>D</span>
+              <input
+                type="radio"
+                className="inputCheckbox"
+                checked={drumRadio === 3}
+                onChange={() => {
+                  drumRadio === 3 ? setDrumRadio(0) : setDrumRadio(3);
+                }}
+              />
+              <span style={{ color: "#ffffff", fontSize: "10px" }}>F</span>
             </td>
             <td className="head4"></td>
             <td className="head5">

@@ -14,7 +14,7 @@ const App = () => {
   const [vxCheck, setVxCheck] = useState(null);
   const [redCheck, setRedCheck] = useState(null);
 
-  const [bpm, setBpm] = useState(50);
+  const [bpm, setBpm] = useState(120);
   const [loop, setLoop] = useState(0);
   const [volume, setVolume] = useState(90);
   const [beat, setBeat] = useState([]);
@@ -259,7 +259,7 @@ const App = () => {
       if (option === "instrument") {
         newBlocks[i].rows.push({
           trackName: data.trackNameNew,
-          instrument: data.instrumentNew,
+          instrument: Number(data.instrumentNew),
           note: data.noteNew,
           vol: 100,
           onNotes: [],
@@ -332,7 +332,7 @@ const App = () => {
           },
           {
             trackName: "Melody 3",
-            instrument: "0",
+            instrument: 0,
             vol: 100,
             note: 52,
             onNotes: [],
@@ -429,12 +429,18 @@ const App = () => {
       );
 
       newBlocks[bi].rows[ri].onNotes = newOnNotes;
-      setBlocks(newBlocks);
-      fillBeat();
+      midiSounds.current.player.loader.waitLoad(() => {
+        setBlocks(newBlocks);
+
+        fillBeat();
+      });
     } else {
       newBlocks[bi].rows[ri].onNotes.push(i);
-      setBlocks(newBlocks);
-      fillBeat();
+      midiSounds.current.player.loader.waitLoad(() => {
+        setBlocks(newBlocks);
+
+        fillBeat();
+      });
     }
   };
   // Khi ấn vào icon file, remove hết các checkbox đang check
@@ -462,8 +468,15 @@ const App = () => {
   const handleInstrumentChange = (bi, ri, value) => {
     const newBlocks = blocks.map((block) => block);
     newBlocks[bi].rows[ri].instrument = Number(value);
-
-    setBlocks(newBlocks);
+    if (newBlocks[bi].type === "drums") {
+      midiSounds.current.cacheDrum(Number(value));
+    } else {
+      midiSounds.current.cacheInstrument(Number(value));
+    }
+    midiSounds.current.player.loader.waitLoad(function () {
+      setBlocks(newBlocks);
+      fillBeat();
+    });
   };
 
   // xử lý sự kiện thay đổi note của các row
