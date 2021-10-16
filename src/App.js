@@ -36,6 +36,7 @@ const App = () => {
     }
   });
 
+  // Tạo beat data
   const fillBeat = () => {
     for (var i = 0; i < 16; i++) {
       var drums = [];
@@ -78,7 +79,7 @@ const App = () => {
     }
     setBeat(beatData);
   };
-
+  // Thêm một block mới
   const addBlock = (block) => {
     if (block === "drums") {
       const newBlocks = [
@@ -141,7 +142,7 @@ const App = () => {
       setBlocks(newBlocks);
     }
   };
-
+  // Xóa một block
   const deleteBlock = (option, i) => {
     if (option === "delete") {
       const newBlocks = blocks.filter((block, index) => index !== i);
@@ -152,6 +153,7 @@ const App = () => {
     }
   };
 
+  // Di chuyển các block
   const moveBlock = (option, index) => {
     if (option === "up") {
       const newBlocks = blocks.map((block) => block);
@@ -172,6 +174,7 @@ const App = () => {
     }
   };
 
+  // đổi tên block
   const renameBlock = (name, i) => {
     const newBlocks = blocks.map((block, index) => {
       if (i === index) {
@@ -184,6 +187,7 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
+  // thay đổi field của Block tại vị trí bi
   const handleBlockOnPlay = (bi) => {
     const newBlocks = blocks.map((block) => block);
 
@@ -192,6 +196,7 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
+  //  Thêm row vào các block
   const addRow = (option, data, i) => {
     const newBlocks = blocks.map((block) => block);
     if (blocks[i].type === "drums") {
@@ -376,6 +381,7 @@ const App = () => {
     }
   };
 
+  // Xóa 1 row
   const deleteRow = (option, ri, i) => {
     const newBlocks = blocks.map((block) => block);
     if (option === "delete") {
@@ -389,6 +395,8 @@ const App = () => {
       setDeleteRowNumber(null);
     }
   };
+
+  // Đổi tên của 1 row
   const renameTrack = (name, i, ri) => {
     const newBlocks = blocks.map((block) => block);
     const newRows = blocks[i].rows.map((el, index) => {
@@ -411,6 +419,7 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
+  // Xử lý cho sự kiện thay đổi của 16 checkbox play
   const handleOnNotes = (bi, ri, i) => {
     const isOnNote = blocks[bi].rows[ri].onNotes.includes(i);
     const newBlocks = blocks.map((block) => block);
@@ -428,7 +437,7 @@ const App = () => {
       fillBeat();
     }
   };
-
+  // Khi ấn vào icon file, remove hết các checkbox đang check
   const handleRemoveOnNotes = (bi) => {
     const newBlocks = blocks.map((block) => block);
 
@@ -440,6 +449,7 @@ const App = () => {
     fillBeat();
   };
 
+  // Xử lý cho các row đươc check hay uncheck để play
   const handleOnPlay = (bi, ri) => {
     const newBlocks = blocks.map((block) => block);
 
@@ -448,6 +458,7 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
+  // xử lý sự kiện thay đổi nhạc cụ của các row
   const handleInstrumentChange = (bi, ri, value) => {
     const newBlocks = blocks.map((block) => block);
     newBlocks[bi].rows[ri].instrument = Number(value);
@@ -455,6 +466,7 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
+  // xử lý sự kiện thay đổi note của các row
   const handleNoteChange = (bi, ri, value) => {
     const newBlocks = blocks.map((block) => block);
     newBlocks[bi].rows[ri].note = Number(value);
@@ -462,25 +474,27 @@ const App = () => {
     setBlocks(newBlocks);
   };
 
+  // xử lý sự kiện thay đổi volume của các row
   const handleVolChange = (bi, ri, value) => {
     const newBlocks = blocks.map((block) => block);
     newBlocks[bi].rows[ri].vol = Number(value);
 
     setBlocks(newBlocks);
   };
-
+  // // xử lý sự kiện thay đổi của red check để xác định block nào được play
   const handleRedCheckChange = (index) => {
     setRedCheck(index);
     fillBeat();
   };
 
+  // Bắt đầu play nhạc
   const playLoop = () => {
     console.log("play");
     fillBeat();
 
     midiSounds.current.startPlayLoop(beat, bpm, 1 / 16);
   };
-
+  // dừng play nhạc
   const stopLoop = () => {
     console.log("stop");
     midiSounds.current.stopPlayLoop();
