@@ -6,8 +6,6 @@ const ControlBlock = ({
   addBlock,
   bpm,
   setBpm,
-  volume,
-  setVolume,
   loop,
   setLoop,
   playLoop,
@@ -118,25 +116,12 @@ const ControlBlock = ({
             <option value="50">50</option>
           </select>
         </div>
-        <input
-          style={{ width: "90px", height: "5px" }}
-          type="range"
-          value={volume}
-          min="0"
-          onChange={(e) => setVolume(e.target.value)}
-          max="100"
-        />
-        <input
-          style={{
-            width: "45px",
-            borderBottom: "1px solid #7e7e7e",
-          }}
-          type="number"
-          value={volume}
-          min="0"
-          max="100"
-          onChange={(e) => setVolume(e.target.value)}
-        />
+        <ul className="abcdTab">
+          <li>A</li>
+          <li>B</li>
+          <li>C</li>
+          <li>D</li>
+        </ul>
       </div>
     </div>
   );

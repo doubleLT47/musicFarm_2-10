@@ -21,14 +21,14 @@ const BFrame = ({
         addBlock={addBlock}
         bpm={bpm}
         setBpm={setBpm}
-        volume={volume}
-        setVolume={setVolume}
         loop={loop}
         setLoop={setLoop}
         playLoop={playLoop}
         stopLoop={stopLoop}
       />
-      <ScriptBlock vxCheck={vxCheck} />
+      <ScriptBlock vxCheck={vxCheck} 
+        volume={volume}
+        setVolume={setVolume} />
     </div>
   );
 };

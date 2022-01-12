@@ -173,3 +173,24 @@
   font-weight: bold;
   background-color: var(--secondary-bg);
 }
+
+.abcdTab {
+  display: flex;
+}
+
+.abcdTab li {
+  width: 25px;
+  height: 25px;
+  background-color: #eeeeee;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+
+}
+
+.abcdTab li:hover {
+  background-color: #6b6969;
+}

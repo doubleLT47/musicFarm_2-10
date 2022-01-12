@@ -24,6 +24,7 @@ const VocalRow = ({
       <td>
         <select
           name=""
+          
           className="select"
           value={row.instrument}
           onChange={(e) => handleInstrumentChange(bi, ri, e.target.value)}

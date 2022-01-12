@@ -17,7 +17,6 @@ const App = () => {
   const [bpm, setBpm] = useState(120);
   const [loop, setLoop] = useState(0);
   const [volume, setVolume] = useState(90);
-  const [beat, setBeat] = useState([]);
 
   var midiSounds = useRef();
   var listInstrument = [],
@@ -36,49 +35,6 @@ const App = () => {
     }
   });
 
-  // Tạo beat data
-  const fillBeat = () => {
-    for (var i = 0; i < 16; i++) {
-      var drums = [];
-      var is = [];
-      if (redCheck === null) {
-        for (var j = 0; j < blocks.length; j++) {
-          for (var k = 0; k < blocks[j].rows.length; k++) {
-            if (blocks[j].rows[k].onNotes.includes(i + 1)) {
-              if (blocks[j].type !== "drums") {
-                is.push([
-                  blocks[j].rows[k].instrument,
-                  [blocks[j].rows[k].note],
-                  2 / 16,
-                  1,
-                ]);
-              } else {
-                drums.push(blocks[j].rows[k].instrument);
-              }
-            }
-          }
-        }
-      } else {
-        for (k = 0; k < blocks[redCheck].rows.length; k++) {
-          if (blocks[redCheck].rows[k].onNotes.includes(i + 1)) {
-            if (blocks[redCheck].type !== "drums") {
-              is.push([
-                blocks[redCheck].rows[k].instrument,
-                [blocks[redCheck].rows[k].note],
-                2 / 16,
-                1,
-              ]);
-            } else {
-              drums.push(blocks[redCheck].rows[k].instrument);
-            }
-          }
-        }
-      }
-      var beat = [drums, is];
-      beatData[i] = beat;
-    }
-    setBeat(beatData);
-  };
   // Thêm một block mới
   const addBlock = (block) => {
     if (block === "drums") {
@@ -418,31 +374,6 @@ const App = () => {
 
     setBlocks(newBlocks);
   };
-
-  // Xử lý cho sự kiện thay đổi của 16 checkbox play
-  const handleOnNotes = (bi, ri, i) => {
-    const isOnNote = blocks[bi].rows[ri].onNotes.includes(i);
-    const newBlocks = blocks.map((block) => block);
-    if (isOnNote) {
-      const newOnNotes = blocks[bi].rows[ri].onNotes.filter(
-        (note) => note !== i
-      );
-
-      newBlocks[bi].rows[ri].onNotes = newOnNotes;
-      midiSounds.current.player.loader.waitLoad(() => {
-        setBlocks(newBlocks);
-
-        fillBeat();
-      });
-    } else {
-      newBlocks[bi].rows[ri].onNotes.push(i);
-      midiSounds.current.player.loader.waitLoad(() => {
-        setBlocks(newBlocks);
-
-        fillBeat();
-      });
-    }
-  };
   // Khi ấn vào icon file, remove hết các checkbox đang check
   const handleRemoveOnNotes = (bi) => {
     const newBlocks = blocks.map((block) => block);
@@ -500,18 +431,82 @@ const App = () => {
     fillBeat();
   };
 
+  // Tạo beat data
+  const fillBeat = () => {
+    for (var i = 0; i < 16; i++) {
+      var drums = [];
+      var is = [];
+      if (redCheck === null) {
+        for (var j = 0; j < blocks.length; j++) {
+          for (var k = 0; k < blocks[j].rows.length; k++) {
+            if (blocks[j].rows[k].onNotes.includes(i + 1)) {
+              if (blocks[j].type !== "drums") {
+                is.push([
+                  blocks[j].rows[k].instrument,
+                  [blocks[j].rows[k].note],
+                  2 / 16,
+                  1,
+                ]);
+              } else {
+                drums.push(blocks[j].rows[k].instrument);
+              }
+            }
+          }
+        }
+      } else {
+        for (k = 0; k < blocks[redCheck].rows.length; k++) {
+          if (blocks[redCheck].rows[k].onNotes.includes(i + 1)) {
+            if (blocks[redCheck].type !== "drums") {
+              is.push([
+                blocks[redCheck].rows[k].instrument,
+                [blocks[redCheck].rows[k].note],
+                2 / 16,
+                1,
+              ]);
+            } else {
+              drums.push(blocks[redCheck].rows[k].instrument);
+            }
+          }
+        }
+      }
+      var beat = [drums, is];
+      beatData[i] = beat;
+    }
+    // console.log(beatData);
+  };
+
   // Bắt đầu play nhạc
   const playLoop = () => {
-    console.log("play");
     fillBeat();
+    console.log(beatData);
 
-    midiSounds.current.startPlayLoop(beat, bpm, 1 / 16);
+    midiSounds.current.startPlayLoop(beatData, bpm, 1 / 16);
   };
   // dừng play nhạc
   const stopLoop = () => {
     console.log("stop");
     midiSounds.current.stopPlayLoop();
   };
+
+  // Xử lý cho sự kiện thay đổi của 16 checkbox play
+  const handleOnNotes = (bi, ri, i) => {
+    const isOnNote = blocks[bi].rows[ri].onNotes.includes(i);
+    const newBlocks = blocks.map((block) => block);
+    if (isOnNote) {
+      const newOnNotes = blocks[bi].rows[ri].onNotes.filter(
+        (note) => note !== i
+      );
+
+      newBlocks[bi].rows[ri].onNotes = newOnNotes;
+      setBlocks(newBlocks);
+      fillBeat();
+    } else {
+      newBlocks[bi].rows[ri].onNotes.push(i);
+      setBlocks(newBlocks);
+      fillBeat();
+    }
+  };
+  // console.log(beatData);
 
   return (
     <div className="app">

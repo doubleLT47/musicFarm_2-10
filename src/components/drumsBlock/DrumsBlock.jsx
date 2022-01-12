@@ -162,6 +162,7 @@ const DrumsBlock = ({
               </label>
               <input
                 type="radio"
+                style={{marginLeft: "45px"}}
                 className="inputCheckbox"
                 checked={drumRadio === 1}
                 onChange={() => {

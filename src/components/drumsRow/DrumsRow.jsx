@@ -109,6 +109,7 @@ const DrumsRow = ({
       <td colSpan="2">
         <select
           name=""
+          style={{maxWidth: "139px"}}
           className="select"
           value={row.instrument}
           onChange={(e) => handleInstrumentChange(bi, ri, e.target.value)}

@@ -27,7 +27,7 @@ td {
 }
 
 .inputCheckbox {
-  margin: 3px 3px 3px 4px;
+  margin: 3px 6px 3px 5px;
 }
 
 .head2 {
@@ -207,6 +207,7 @@ td {
   background-color: var(--secondary-bg);
   margin-left: 2px;
   cursor: pointer;
+  
 }
 
 .subIcon {
@@ -340,7 +341,7 @@ td {
 .patternO {
   display: inline-block;
   font-size: 12px;
-  width: 13px;
+  width: 16px;
   height: 16px;
   border-radius: 50%;
   border: 1px solid var(--border-color);
